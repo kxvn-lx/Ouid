@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EntryViewModel: NSObject {
+class EntryViewModel {
     private(set) var entries = [Entry]() {
         didSet {
             entries = entries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
@@ -15,9 +15,8 @@ class EntryViewModel: NSObject {
     }
     private var saveEngine = SaveEngine()
     
-    override init() {
-        super.init()
-        entries = saveEngine.savedEntries
+    init() {
+        entries = saveEngine.savedEntries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
     }
     
     func save(_ entry: Entry) {

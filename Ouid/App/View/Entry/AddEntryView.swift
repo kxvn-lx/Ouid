@@ -21,7 +21,7 @@ class AddEntryViewDelegate: ObservableObject {
 struct AddEntryView: View {
     @ObservedObject var delegate: AddEntryViewDelegate
     private var dismissAction: (() -> Void)?
-    @State private var amount = ""
+    @State private var amount = "0."
     @State private var date = Date()
     @State private var isUsingCurrentDateTime = true
     @State private var isShowingError = false

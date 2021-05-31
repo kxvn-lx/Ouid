@@ -32,16 +32,19 @@ class DateView: UIView {
         
         setupView()
         setupConstraint()
-
+        
         layer.cornerRadius = 12.5
-        layer.masksToBounds = true
+        layer.cornerCurve = .continuous
+        
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.systemGray5.cgColor
         
         backgroundColor = .secondarySystemGroupedBackground
-        layer.shadowColor = UIColor.systemGray.cgColor
-        layer.shadowOpacity = 0.25
-        layer.shadowOffset = CGSize(width: 0, height: 2.5)
-        layer.shadowRadius = 2.5
-        layer.masksToBounds = false
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        layer.borderColor = UIColor.systemGray5.cgColor
     }
     
     required init?(coder: NSCoder) {
@@ -65,14 +68,14 @@ class DateView: UIView {
     private func parseMonth(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMM"
-
+        
         return formatter.string(from: date)
     }
     
     private func parseDate(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd"
-
+        
         return formatter.string(from: date)
     }
 }

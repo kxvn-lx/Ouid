@@ -33,12 +33,17 @@ class EntryTableViewCell: UITableViewCell {
     }()
     private var stackView: UIStackView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         setupView()
         setupConstraint()
     
         backgroundColor = .secondarySystemGroupedBackground
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

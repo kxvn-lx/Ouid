@@ -23,6 +23,8 @@ class EntryTableViewController: UITableViewController {
         let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(addTapped(_:)))
         navigationItem.rightBarButtonItem = addButton
         
+        tableView.register(EntryTableViewCell.self, forCellReuseIdentifier: EntryTableViewCell.REUSE_IDENTIFIER)
+        
         observeDelegate()
     }
 
