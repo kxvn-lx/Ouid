@@ -27,6 +27,7 @@
 		0A7367C9265FD69B002CF722 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7367C8265FD69B002CF722 /* SceneDelegate.swift */; };
 		0A7367D0265FD69C002CF722 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A7367CF265FD69C002CF722 /* Assets.xcassets */; };
 		0A7367D3265FD69C002CF722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7367D1265FD69C002CF722 /* LaunchScreen.storyboard */; };
+		0AA129FA266515C6003CD4AB /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA129F9266515C6003CD4AB /* UIFont+.swift */; };
 		0AA4C5AA2664607F00555E54 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA4C5A92664607F00555E54 /* AnalyticsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +53,7 @@
 		0A7367CF265FD69C002CF722 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A7367D2265FD69C002CF722 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A7367D4265FD69C002CF722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0AA129F9266515C6003CD4AB /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		0AA4C5A92664607F00555E54 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,6 +99,7 @@
 				0A0E1C862662048800F08706 /* Date+.swift */,
 				0A0E1C9026620F6000F08706 /* UIStackView+.swift */,
 				0A0E1C92266214C500F08706 /* NSAttributedString+.swift */,
+				0AA129F9266515C6003CD4AB /* UIFont+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				0A15CBB22663390C00D14750 /* SaveEngine.swift in Sources */,
 				0AA4C5AA2664607F00555E54 /* AnalyticsView.swift in Sources */,
 				0A0E1C93266214C500F08706 /* NSAttributedString+.swift in Sources */,
+				0AA129FA266515C6003CD4AB /* UIFont+.swift in Sources */,
 				0A0E1C9126620F6000F08706 /* UIStackView+.swift in Sources */,
 				0A0E1C892662057C00F08706 /* EntryViewModel.swift in Sources */,
 				0A4C4CA026635A8F00FE70FF /* AddEntryView.swift in Sources */,

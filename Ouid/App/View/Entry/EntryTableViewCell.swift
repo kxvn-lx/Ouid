@@ -22,7 +22,7 @@ class EntryTableViewCell: UITableViewCell {
     private let dateView = DateView()
     private let amountLabel: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: UIFont.preferredFont(forTextStyle: .title3).pointSize)
+        label.font = .rounded(ofSize: UIFont.preferredFont(forTextStyle: .title3).pointSize, weight: .regular)
         return label
     }()
     private let timeLabel: UILabel = {

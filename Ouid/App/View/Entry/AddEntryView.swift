@@ -8,6 +8,26 @@
 import SwiftUI
 import Combine
 
+/// Publisher to read keyboard changes.
+protocol KeyboardReadable {
+    var keyboardPublisher: AnyPublisher<Bool, Never> { get }
+}
+
+extension KeyboardReadable {
+    var keyboardPublisher: AnyPublisher<Bool, Never> {
+        Publishers.Merge(
+            NotificationCenter.default
+                .publisher(for: UIResponder.keyboardWillShowNotification)
+                .map { _ in true },
+            
+            NotificationCenter.default
+                .publisher(for: UIResponder.keyboardWillHideNotification)
+                .map { _ in false }
+        )
+        .eraseToAnyPublisher()
+    }
+}
+
 class AddEntryViewDelegate: ObservableObject {
     var didChange = PassthroughSubject<AddEntryViewDelegate, Never>()
     
@@ -18,10 +38,10 @@ class AddEntryViewDelegate: ObservableObject {
     }
 }
 
-struct AddEntryView: View {
+struct AddEntryView: View, KeyboardReadable {
     @ObservedObject var delegate: AddEntryViewDelegate
     private var dismissAction: (() -> Void)?
-    @State private var amount = "0."
+    @State private var amount = ""
     @State private var date = Date()
     @State private var isUsingCurrentDateTime = true
     @State private var isShowingError = false
@@ -37,6 +57,11 @@ struct AddEntryView: View {
             Form {
                 Section {
                     amountTextField
+                        .onReceive(keyboardPublisher, perform: { newValue in
+                            if newValue && amount == "" {
+                                amount = "0."
+                            }
+                        })
                 }
                 dateTimePicker
             }
@@ -77,9 +102,11 @@ extension AddEntryView {
             Text("Amount")
             TextField("0.0", text: $amount)
                 .keyboardType(.decimalPad)
+                .font(.system(.body, design: .rounded))
             Text("G")
                 .foregroundColor(.secondary)
                 .font(.caption)
+                .font(.system(.body, design: .rounded))
         }
     }
     

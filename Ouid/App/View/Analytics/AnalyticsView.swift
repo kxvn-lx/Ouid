@@ -22,6 +22,7 @@ struct AnalyticsView: View {
                         Text("G")
                             .font(.caption)
                     }
+                    .font(.system(.body, design: .rounded))
                     .foregroundColor(.secondary)
                 }
                 HStack {
@@ -32,6 +33,7 @@ struct AnalyticsView: View {
                         Text("G")
                             .font(.caption)
                     }
+                    .font(.system(.body, design: .rounded))
                     .foregroundColor(.secondary)
                 }
                 HStack {
@@ -42,6 +44,7 @@ struct AnalyticsView: View {
                         Text("G")
                             .font(.caption)
                     }
+                    .font(.system(.body, design: .rounded))
                     .foregroundColor(.secondary)
                 }
             }
