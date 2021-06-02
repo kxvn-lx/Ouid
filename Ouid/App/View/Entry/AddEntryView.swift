@@ -60,6 +60,12 @@ struct AddEntryView: View, KeyboardReadable {
                         .onReceive(keyboardPublisher, perform: { newValue in
                             if newValue && amount == "" {
                                 amount = "0."
+                                return
+                            }
+                            
+                            if amount == "0." {
+                                amount = ""
+                                return
                             }
                         })
                 }
@@ -102,17 +108,15 @@ extension AddEntryView {
             Text("Amount")
             TextField("0.0", text: $amount)
                 .keyboardType(.decimalPad)
-                .font(.system(.body, design: .rounded))
             Text("G")
                 .foregroundColor(.secondary)
-                .font(.caption)
-                .font(.system(.body, design: .rounded))
         }
+        .font(.system(.body, design: .rounded))
     }
     
     private var dateTimePicker: some View {
         return (
-            Section {
+            Section(footer: Text("You can only select current or past date.")) {
                 Toggle("Use current date and time", isOn: $isUsingCurrentDateTime)
                 if !isUsingCurrentDateTime {
                     DatePicker("Date", selection: $date, in: ...Date(), displayedComponents: .date)

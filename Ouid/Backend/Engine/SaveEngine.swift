@@ -14,11 +14,15 @@ struct SaveEngine {
         let savedEntries: [Entry]
     }
     
-    private let filePath: URL
+    private var filePath: URL!
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
     init() {
+        load()
+    }
+    
+    mutating func load() {
         do {
             filePath = try FileManager.default.url(for: .documentDirectory,
                                                    in: .userDomainMask,
@@ -33,7 +37,6 @@ struct SaveEngine {
             }
         } catch let error {
             fatalError(error.localizedDescription)
-            
         }
     }
     

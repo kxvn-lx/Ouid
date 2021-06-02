@@ -20,7 +20,6 @@ struct AnalyticsView: View {
                     HStack {
                         Text("\(viewModel.dayAmount, specifier: "%.2f")")
                         Text("G")
-                            .font(.caption)
                     }
                     .font(.system(.body, design: .rounded))
                     .foregroundColor(.secondary)
@@ -31,7 +30,6 @@ struct AnalyticsView: View {
                     HStack {
                         Text("\(viewModel.weekAmount, specifier: "%.2f")")
                         Text("G")
-                            .font(.caption)
                     }
                     .font(.system(.body, design: .rounded))
                     .foregroundColor(.secondary)
@@ -42,13 +40,21 @@ struct AnalyticsView: View {
                     HStack {
                         Text("\(viewModel.monthAmount, specifier: "%.2f")")
                         Text("G")
-                            .font(.caption)
                     }
                     .font(.system(.body, design: .rounded))
                     .foregroundColor(.secondary)
                 }
             }
+            Section {
+                NavigationLink(destination: MonthlyAnalyticsView(dict: $viewModel.monthlyAmount)) {
+                    Text("View monthly amount")
+                }
+            }
+            .foregroundColor(.accentColor)
         }
+        .onAppear(perform: {
+            viewModel.load()
+        })
         .navigationBarTitle("Analytics", displayMode: .large)
     }
 }
