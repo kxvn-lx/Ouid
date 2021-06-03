@@ -16,8 +16,8 @@ class HomeViewController: UITabBarController {
     }
     
     private let DEFAULT_VIEWS: [ViewControllerWrapper] = [
-        .init(vc: EntryTableViewController(style: .insetGrouped), icon: UIImage(systemName: "heart.text.square")!, title: "Entries"),
-        .init(vc: UIHostingController(rootView: AnalyticsView()), icon: UIImage(systemName: "waveform.path.ecg")!, title: "Analytics")
+        .init(vc: UIHostingController(rootView: AnalyticsView()), icon: UIImage(systemName: "heart.text.square")!, title: "Dashboard"),
+        .init(vc: EntryTableViewController(style: .insetGrouped), icon: UIImage(systemName: "list.bullet.rectangle")!, title: "Entries")
     ]
     
     override func viewDidLoad() {

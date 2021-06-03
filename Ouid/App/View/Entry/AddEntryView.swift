@@ -47,9 +47,17 @@ struct AddEntryView: View, KeyboardReadable {
     @State private var isShowingError = false
     @State private var errorMessage = ""
     
-    init(delegate: AddEntryViewDelegate, dismissAction: (() -> Void)?) {
+    private var oldEntry: Entry? {
+        didSet {
+            amount = String(format: "%.2f", oldEntry!.measurement.value)
+            date = oldEntry!.date
+        }
+    }
+    
+    init(delegate: AddEntryViewDelegate, dismissAction: (() -> Void)?, oldEntry: Entry?) {
         self.delegate = delegate
         self.dismissAction = dismissAction
+        self.oldEntry = oldEntry
     }
     
     var body: some View {
@@ -74,7 +82,7 @@ struct AddEntryView: View, KeyboardReadable {
             .onTapGesture {
                 self.endEditing(true)
             }
-            .navigationBarTitle("Add an Entry", displayMode: .inline)
+            .navigationBarTitle(oldEntry == nil ? "Add an Entry" : "Edit an Entry", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
@@ -85,7 +93,11 @@ struct AddEntryView: View, KeyboardReadable {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         if let amount = Double(amount) {
-                            delegate.newEntry = .init(date: date, measurement: .init(value: amount, unit: .grams))
+                            if oldEntry == nil {
+                                delegate.newEntry = .init(date: date, measurement: .init(value: amount, unit: .grams))
+                            } else {
+                                
+                            }
                             self.dismissAction!()
                         } else {
                             errorMessage = "Unable to create an entry, please double check your input."

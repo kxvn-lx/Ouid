@@ -9,8 +9,8 @@ import Foundation
 
 struct Entry: Codable, Hashable, Equatable, Identifiable {
     var id = UUID()
-    let date: Date
-    let measurement: Measurement<UnitMass>
+    var date: Date
+    var measurement: Measurement<UnitMass>
     
     static let dummy_entries: [Entry] = [
         .init(date: .init("29/05/2021 15:12"), measurement: .init(value: 0.5, unit: .grams)),

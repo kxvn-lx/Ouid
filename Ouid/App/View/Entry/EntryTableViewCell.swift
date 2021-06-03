@@ -13,7 +13,7 @@ class EntryTableViewCell: UITableViewCell {
         didSet {
             dateView.date = entry.date
             amountLabel.attributedText = NSMutableAttributedString()
-                .bold(String(entry.measurement.value) + " ")
+                .bold(String(format: "%.2f", entry.measurement.value) + " ")
                 .normal(entry.measurement.unit.symbol.uppercased())
             timeLabel.text = parseTime(from: entry.date)
         }

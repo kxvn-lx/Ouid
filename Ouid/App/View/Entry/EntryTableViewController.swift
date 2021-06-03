@@ -49,6 +49,12 @@ class EntryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let selectedEntry = viewModel.entries[indexPath.row]
+        
+        let vc = UIHostingController(rootView: AddEntryView(delegate: delegate, dismissAction: {
+            self.dismiss(animated: true, completion: nil)
+        }, oldEntry: selectedEntry))
+        self.present(vc, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -84,7 +90,7 @@ class EntryTableViewController: UITableViewController {
     @objc private func addTapped(_ sender: UIBarButtonItem) {
         let vc = UIHostingController(rootView: AddEntryView(delegate: delegate, dismissAction: {
             self.dismiss(animated: true, completion: nil)
-        }))
+        }, oldEntry: nil))
         self.present(vc, animated: true, completion: nil)
     }
 }
