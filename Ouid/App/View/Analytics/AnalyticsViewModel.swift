@@ -60,6 +60,14 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     
+    func parseJumpToCurrentTitle() -> String {
+        switch selectedFrequency {
+        case .day: return "Today"
+        case .week: return "This Week"
+        case .month: return "This Month"
+        }
+    }
+    
     /// Main function
     private func renderAnalytics() {
         filteredEntries = filterEntries(arrowCount: arrowCount)

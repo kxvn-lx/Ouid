@@ -73,6 +73,21 @@ struct AnalyticsView: View {
                 Spacer()
             }
             ToolbarItem(placement: .bottomBar) {
+                if !(viewModel.arrowCount == 0) {
+                    Button {
+                        TapticHelper.shared.lightTaptic()
+                        viewModel.arrowCount = 0
+                    } label: {
+                        Text("Show \(viewModel.parseJumpToCurrentTitle())")
+                    }
+                } else {
+                    Spacer()
+                }
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
                 Button(action: {
                     TapticHelper.shared.lightTaptic()
                     viewModel.arrowCount += 1
