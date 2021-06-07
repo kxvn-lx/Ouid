@@ -31,7 +31,7 @@ extension KeyboardReadable {
 class AddEntryViewDelegate: ObservableObject {
     var didChange = PassthroughSubject<AddEntryViewDelegate, Never>()
     
-    var newEntry: Entry! {
+    var newEntry: Entry? {
         didSet {
             self.didChange.send(self)
         }
@@ -47,17 +47,9 @@ struct AddEntryView: View, KeyboardReadable {
     @State private var isShowingError = false
     @State private var errorMessage = ""
     
-    private var oldEntry: Entry? {
-        didSet {
-            amount = String(format: "%.2f", oldEntry!.measurement.value)
-            date = oldEntry!.date
-        }
-    }
-    
-    init(delegate: AddEntryViewDelegate, dismissAction: (() -> Void)?, oldEntry: Entry?) {
+    init(delegate: AddEntryViewDelegate, dismissAction: (() -> Void)?) {
         self.delegate = delegate
         self.dismissAction = dismissAction
-        self.oldEntry = oldEntry
     }
     
     var body: some View {
@@ -82,7 +74,7 @@ struct AddEntryView: View, KeyboardReadable {
             .onTapGesture {
                 self.endEditing(true)
             }
-            .navigationBarTitle(oldEntry == nil ? "Add an Entry" : "Edit an Entry", displayMode: .inline)
+            .navigationBarTitle("Add an Entry", displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
@@ -93,11 +85,7 @@ struct AddEntryView: View, KeyboardReadable {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         if let amount = Double(amount) {
-                            if oldEntry == nil {
-                                delegate.newEntry = .init(date: date, measurement: .init(value: amount, unit: .grams))
-                            } else {
-                                
-                            }
+                            delegate.newEntry = .init(date: date, measurement: .init(value: amount, unit: .grams))
                             self.dismissAction!()
                         } else {
                             errorMessage = "Unable to create an entry, please double check your input."

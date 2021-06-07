@@ -8,54 +8,77 @@
 import SwiftUI
 import Combine
 
-struct AnalyticsView: View {
-    @ObservedObject private var viewModel = AnalyticsViewModel()
+struct EntryView: View {
+    let entry: Entry
     
     var body: some View {
-        Form {
-            Section(header: Text("Amount Smoked")) {
-                HStack {
-                    Text("Today")
-                    Spacer()
-                    HStack {
-                        Text("\(viewModel.dayAmount, specifier: "%.2f")")
-                        Text("G")
-                    }
-                    .font(.system(.body, design: .rounded))
-                    .foregroundColor(.secondary)
+        HStack {
+            Spacer()
+            HStack {
+                Text("\(entry.measurement.value, specifier: "%.2f")")
+                Text("\(entry.measurement.unit)")
+            }
+            .font(.system(.body, design: .rounded))
+            .foregroundColor(.secondary)
+        }
+    }
+}
+
+struct AnalyticsView: View {
+    @ObservedObject private var viewModel = AnalyticsViewModel()
+    private var selections = ["Daily", "Weekly", "Monthly"]
+    @State private var selectedSelection = "Daily"
+    
+    var body: some View {
+        VStack {
+            Form {
+                Section(header: selectionControlView) {
+                    EmptyView()
                 }
-                HStack {
-                    Text("This week")
-                    Spacer()
-                    HStack {
-                        Text("\(viewModel.weekAmount, specifier: "%.2f")")
-                        Text("G")
-                    }
-                    .font(.system(.body, design: .rounded))
-                    .foregroundColor(.secondary)
+                .textCase(nil)
+                
+                Section(header: Text("Total Amount Smoked")) {
+                    totalAmountSmokedView
                 }
-                HStack {
-                    Text("This month")
-                    Spacer()
-                    HStack {
-                        Text("\(viewModel.monthAmount, specifier: "%.2f")")
-                        Text("G")
+                
+                Section(header: Text("Entries")) {
+                    ForEach((1...5), id: \.self) {
+                        Text("\($0)")
                     }
-                    .font(.system(.body, design: .rounded))
-                    .foregroundColor(.secondary)
                 }
             }
-            Section {
-                NavigationLink(destination: MonthlyAnalyticsView(dict: $viewModel.monthlyAmount)) {
-                    Text("View monthly amount")
-                }
-            }
-            .foregroundColor(.accentColor)
         }
         .onAppear(perform: {
             viewModel.load()
+            UITableViewCell.appearance().backgroundColor = UIColor.clear
         })
         .navigationBarTitle("Analytics", displayMode: .large)
+    }
+}
+
+extension AnalyticsView {
+    private var totalAmountSmokedView: some View {
+        HStack {
+            Text("Today")
+            Spacer()
+            HStack {
+                Text("\(viewModel.dayAmount, specifier: "%.2f")")
+                Text("G")
+            }
+            .font(.system(.body, design: .rounded))
+            .foregroundColor(.secondary)
+        }
+    }
+    
+    private var selectionControlView: some View {
+        VStack(alignment: .center, spacing: 0) {
+            Picker(selection: $selectedSelection, label: Text("What is your favorite color?")) {
+                ForEach(selections, id: \.self) {
+                    Text($0)
+                }
+            }
+            .pickerStyle(SegmentedPickerStyle())
+        }
     }
 }
 

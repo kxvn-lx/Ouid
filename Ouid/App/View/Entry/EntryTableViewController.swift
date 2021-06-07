@@ -47,16 +47,6 @@ class EntryTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let selectedEntry = viewModel.entries[indexPath.row]
-        
-        let vc = UIHostingController(rootView: AddEntryView(delegate: delegate, dismissAction: {
-            self.dismiss(animated: true, completion: nil)
-        }, oldEntry: selectedEntry))
-        self.present(vc, animated: true, completion: nil)
-    }
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             viewModel.save(viewModel.entries[indexPath.row])
@@ -80,9 +70,12 @@ class EntryTableViewController: UITableViewController {
     private func observeDelegate() {
         changePublisher = delegate.didChange.sink(receiveValue: { [weak self] delegate in
             guard let self = self else { return }
-            self.viewModel.save(delegate.newEntry)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+            if let newEntry = delegate.newEntry {
+                self.viewModel.save(newEntry)
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                return
             }
         })
     }
@@ -90,7 +83,7 @@ class EntryTableViewController: UITableViewController {
     @objc private func addTapped(_ sender: UIBarButtonItem) {
         let vc = UIHostingController(rootView: AddEntryView(delegate: delegate, dismissAction: {
             self.dismiss(animated: true, completion: nil)
-        }, oldEntry: nil))
+        }))
         self.present(vc, animated: true, completion: nil)
     }
 }

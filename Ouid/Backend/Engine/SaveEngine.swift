@@ -48,12 +48,7 @@ struct SaveEngine {
         }
         
         save()
-    }
-    
-    public mutating func update(_ entry: Entry) {
-        if let row = self.savedEntries.firstIndex(where: {$0.id == entry.id}) {
-            savedEntries[row] = entry
-        }
+        load()
     }
     
     /**

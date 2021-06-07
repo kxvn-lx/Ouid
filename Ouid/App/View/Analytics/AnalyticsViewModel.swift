@@ -18,17 +18,13 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         case day, week, month
     }
     
+    private var saveEngine = SaveEngine()
     private var entries = [Entry]() {
         didSet {
             calculateAllSumAmount()
         }
     }
     @Published var dayAmount: Double = 0.0
-    @Published var monthAmount: Double = 0.0
-    @Published var weekAmount: Double = 0.0
-    @Published var monthlyAmount: [String: Double] = [:]
-    
-    private var saveEngine = SaveEngine()
     
     override init() {
         super.init()
@@ -48,49 +44,24 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     
     private func calculateAllSumAmount() {
         dayAmount = calculateSumAmount(.day)
-        monthAmount = calculateSumAmount(.month)
-        weekAmount = calculateSumAmount(.week)
-        
-        monthlyAmount = calculateMonthly()
     }
     
     private func calculateSumAmount(_ type: SumAmountState) -> Double {
         let calendar = Calendar.current
-        let filteredEntries: [Entry]
+        var filteredEntries = [Entry]()
         var sumAmount: Double = 0.0
         
         switch type {
         case .day:
             filteredEntries = entries.filter({ calendar.isDateInToday($0.date) })
             break
-        case .week:
-            filteredEntries = entries.filter({ calendar.isDayInCurrentWeek(date: $0.date) ?? false })
-            break
-        case .month:
-            filteredEntries = entries.filter({ calendar.isDayInCurrentMonth(date: $0.date) ?? false })
-            break
+        default: break
         }
+        
         for entry in filteredEntries {
             sumAmount += entry.measurement.value
         }
         
         return sumAmount
-    }
-    
-    private func calculateMonthly() -> [String: Double] {
-        let parsedEntries = Dictionary(grouping: entries) { entry -> String in
-            let monthAsInt = Calendar.current.dateComponents([.month], from: entry.date).month!
-            let monthName = DateFormatter().monthSymbols[(monthAsInt) - 1]
-            return monthName
-        }
-        
-        var parsedAmount: [String: Double] = [:]
-        
-        for (key, value) in parsedEntries {
-            let valueTotal = value.map({ $0.measurement.value }).reduce(0, +)
-            parsedAmount[key] = valueTotal
-        }
-        
-        return parsedAmount
     }
 }
