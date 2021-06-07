@@ -68,6 +68,7 @@ struct AnalyticsView: View {
                 }, label: {
                     Image(systemName: "chevron.left.circle")
                 })
+                .disabled(viewModel.shouldDisableLeftScanner)
             }
             ToolbarItem(placement: .bottomBar) {
                 Spacer()

@@ -27,6 +27,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             renderAnalytics()
         }
     }
+    @Published var shouldDisableLeftScanner = true
     @Published var totalAmount: Measurement<UnitMass> = Measurement(value: 0.0, unit: .grams)
     @Published var selectedFrequency: Frequency = .day {
         didSet {
@@ -39,7 +40,6 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     override init() {
         super.init()
         load()
-        
         NotificationCenter.default.addObserver(self, selector:#selector(self.calendarDayDidChange(_:)), name:NSNotification.Name.NSCalendarDayChanged, object:nil)
     }
     
@@ -70,11 +70,31 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     
     /// Main function
     private func renderAnalytics() {
-        filteredEntries = filterEntries(arrowCount: arrowCount)
-        filteredEntries = filteredEntries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
+        DispatchQueue.main.async { [self] in
+            filteredEntries = filterEntries(arrowCount: arrowCount)
+            filteredEntries = filteredEntries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
+            
+            totalAmount = calculateTotalAmount()
+            totalAmountTitle = parseTotalAmountTitle()
+            
+            shouldDisableLeftScanner = arrowCount == getMinArrowCount()
+        }
+    }
+    
+    private func getMinArrowCount() -> Int {
+        let earlistEntry = entries.sorted(by: { $0.date.compare($1.date) == .orderedDescending }).last!
         
-        totalAmount = calculateTotalAmount()
-        totalAmountTitle = parseTotalAmountTitle()
+        switch selectedFrequency {
+        case .day:
+            let diffs = Calendar.current.dateComponents([.day], from: Date(), to: earlistEntry.date)
+            return diffs.day!
+        case .week:
+            let diffs = Calendar.current.dateComponents([.weekday], from: Date(), to: earlistEntry.date)
+            return diffs.weekday!
+        case .month:
+            let diffs = Calendar.current.dateComponents([.weekOfMonth], from: Date(), to: earlistEntry.date)
+            return diffs.weekOfMonth!
+        }
     }
     
     private func filterEntries(arrowCount: Int) -> [Entry] {
