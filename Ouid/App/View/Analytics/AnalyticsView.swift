@@ -42,9 +42,7 @@ struct AnalyticsView: View {
                     }
                     
                     if isShowingEntries {
-                        ForEach((1...5), id: \.self) {
-                            Text("\($0)")
-                        }
+                        entriesView
                     }
                 }
             }
@@ -72,7 +70,7 @@ extension AnalyticsView {
             Text("Today")
             Spacer()
             HStack {
-                Text("\(viewModel.totalAmount, specifier: "%.2f")")
+                Text("\(viewModel.totalAmount.value, specifier: "%.2f")")
                 Text("G")
             }
             .font(.system(.body, design: .rounded))
@@ -101,6 +99,14 @@ extension AnalyticsView {
                 Text(isShowingEntries ? "Hide" : "Show")
             })
             .textCase(nil)
+        }
+    }
+    
+    private var entriesView: some View {
+        switch viewModel.selectedFrequency {
+        case .day: return AnyView(DailyAnalyticsRow(entries: $viewModel.filteredEntries))
+        case .week: return AnyView(WeeklyAnalyticsRow(entries: $viewModel.filteredEntries))
+        case .month: return AnyView(MonthlyAnalyticsRow(entries: $viewModel.filteredEntries))
         }
     }
 }

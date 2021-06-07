@@ -21,9 +21,9 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             renderAnalytics()
         }
     }
-    private var filteredEntries = [Entry]()
+    @Published var filteredEntries = [Entry]()
     
-    @Published var totalAmount: Double = 0.0
+    @Published var totalAmount: Measurement<UnitMass> = Measurement(value: 0.0, unit: .grams)
     @Published var selectedFrequency: Frequency = .day {
         didSet {
             renderAnalytics()
@@ -45,6 +45,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     
+    /// Main function
     private func renderAnalytics() {
         filteredEntries = filterEntries()
         totalAmount = calculateTotalAmount()
@@ -67,14 +68,14 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         return filteredEntries
     }
     
-    private func calculateTotalAmount() -> Double {
+    private func calculateTotalAmount() -> Measurement<UnitMass> {
         var amount: Double = 0.0
         
         for entry in filteredEntries {
             amount += entry.measurement.value
         }
         
-        return amount
+        return .init(value: amount, unit: .grams)
     }
     
     @objc private func calendarDayDidChange(_ notification : NSNotification) {

@@ -32,6 +32,7 @@
 		0AC60CAA266DE70700021DC4 /* DateEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CA9266DE70700021DC4 /* DateEngine.swift */; };
 		0AC60CAD266DE75100021DC4 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC60CAC266DE75100021DC4 /* SwiftDate */; };
 		0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */; };
+		0AC60CB1266DFCCF00021DC4 /* DailyAnalyticsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		0AA4C5A92664607F00555E54 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		0AC60CA9266DE70700021DC4 /* DateEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEngine.swift; sourceTree = "<group>"; };
 		0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheet.swift; sourceTree = "<group>"; };
+		0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAnalyticsRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 			children = (
 				0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */,
 				0AA4C5A92664607F00555E54 /* AnalyticsView.swift */,
+				0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AC60CB1266DFCCF00021DC4 /* DailyAnalyticsRow.swift in Sources */,
 				0A0E1C872662048800F08706 /* Date+.swift in Sources */,
 				0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */,
 				0A0E1C85266203AA00F08706 /* Entry.swift in Sources */,
