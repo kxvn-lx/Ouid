@@ -101,16 +101,15 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         var filteredEntries = [Entry]()
         switch selectedFrequency {
         case .day:
-            filteredEntries = entries.filter({ $0.date.compare(.isSameDay(Date() + arrowCount.days)) })
+            filteredEntries = entries.filter({ $0.date.convertTo(region: .current).compare(.isSameDay(Date().convertTo(region: .current) + arrowCount.days)) })
             break
         case .week:
-            filteredEntries = entries.filter({ $0.date.compare(.isSameWeek(Date() + arrowCount.weeks)) })
+            filteredEntries = entries.filter({$0.date.convertTo(region: .current).compare(.isSameWeek((Date().convertTo(region: .current)) + arrowCount.weeks)) })
             break
         case .month:
-            filteredEntries = entries.filter({ $0.date.compare(.isSameMonth(Date() + arrowCount.months)) })
+            filteredEntries = entries.filter({$0.date.convertTo(region: .current).compare(.isSameMonth(Date().convertTo(region: .current) + arrowCount.months)) })
             break
         }
-        
         return filteredEntries
     }
     

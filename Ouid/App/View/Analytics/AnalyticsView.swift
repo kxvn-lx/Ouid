@@ -32,76 +32,69 @@ struct AnalyticsView: View {
                 .listRowBackground(Color.clear)
                 
                 Section(header: entriesHeaderView) {
-                    Button {
-                        activeSheet = .addEntryView
-                    } label: {
+                    if isShowingEntries {
+                        DailyAnalyticsRow(entries: $viewModel.filteredEntries)
+                    } else {
                         HStack {
                             Spacer()
-                            Text("Add an Entry")
+                            Text("You have \(viewModel.filteredEntries.count) entries.")
+                                .foregroundColor(.secondary)
                             Spacer()
                         }
                     }
-                    
-                    if isShowingEntries {
-                        DailyAnalyticsRow(entries: $viewModel.filteredEntries)
-                    }
                 }
             }
-        }
-        .onAppear(perform: {
-            viewModel.load()
-        })
-        .navigationBarTitle("Dashboard", displayMode: .large)
-        .sheet(item: $activeSheet) {
-            viewModel.load()
-        } content: { item in
-            switch item {
-            case .addEntryView:
-                AddEntryView()
+            .onAppear(perform: {
+                viewModel.load()
+            })
+            .navigationBarTitle("Dashboard", displayMode: .large)
+            .sheet(item: $activeSheet) {
+                viewModel.load()
+            } content: { item in
+                switch item {
+                case .addEntryView:
+                    AddEntryView()
+                }
             }
-        }
-        .toolbar {
-            ToolbarItem(placement: .bottomBar) {
-                Button(action: {
-                    TapticHelper.shared.lightTaptic()
-                    viewModel.arrowCount -= 1
-                }, label: {
-                    Image(systemName: "chevron.left.circle")
-                })
-                .disabled(viewModel.shouldDisableLeftScanner)
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
-                if !(viewModel.arrowCount == 0) {
-                    Button {
+            .toolbar {
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
                         TapticHelper.shared.lightTaptic()
-                        viewModel.arrowCount = 0
-                    } label: {
-                        Text("Show \(viewModel.parseJumpToCurrentTitle())")
-                    }
-                } else {
+                        viewModel.arrowCount -= 1
+                    }, label: {
+                        Image(systemName: "chevron.left.circle")
+                    })
+                    .disabled(viewModel.shouldDisableLeftScanner)
+                }
+                ToolbarItem(placement: .bottomBar) {
                     Spacer()
                 }
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Spacer()
-            }
-            ToolbarItem(placement: .bottomBar) {
-                Button(action: {
-                    TapticHelper.shared.lightTaptic()
-                    viewModel.arrowCount += 1
-                }, label: {
-                    Image(systemName: "chevron.right.circle")
-                })
-                .disabled(viewModel.arrowCount == 0)
+                ToolbarItem(placement: .bottomBar) {
+                    if !(viewModel.arrowCount == 0) {
+                        Button {
+                            TapticHelper.shared.lightTaptic()
+                            viewModel.arrowCount = 0
+                        } label: {
+                            Text("Show \(viewModel.parseJumpToCurrentTitle())")
+                        }
+                    } else {
+                        Spacer()
+                    }
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Spacer()
+                }
+                ToolbarItem(placement: .bottomBar) {
+                    Button(action: {
+                        TapticHelper.shared.lightTaptic()
+                        viewModel.arrowCount += 1
+                    }, label: {
+                        Image(systemName: "chevron.right.circle")
+                    })
+                    .disabled(viewModel.arrowCount == 0)
+                }
             }
         }
-    }
-    
-    private func delete(at offsets: IndexSet) {
-        
     }
 }
 
@@ -109,7 +102,7 @@ struct AnalyticsView: View {
 extension AnalyticsView {
     private var totalAmountSmokedView: some View {
         HStack {
-         Spacer()
+            Spacer()
             VStack (spacing: 10) {
                 HStack(alignment: .firstTextBaseline) {
                     Text("\(viewModel.totalAmount.value, specifier: "%.2f")")
@@ -139,6 +132,13 @@ extension AnalyticsView {
     private var entriesHeaderView: some View {
         HStack {
             Text("Entries")
+            Button {
+                activeSheet = .addEntryView
+            } label: {
+                HStack {
+                    Image(systemName: "plus.circle")
+                }
+            }
             Spacer()
             Button(action: {
                 isShowingEntries.toggle()
