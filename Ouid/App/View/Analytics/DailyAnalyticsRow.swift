@@ -17,11 +17,11 @@ struct DailyAnalyticsRow: View {
             ForEach(entries) { entry in
                 HStack(spacing: 20) {
                     VStack {
-                        Text("\(entry.date.toFormat("MMM"))")
+                        Text("\(entry.date.convertTo(region: .current).toFormat("MMM"))")
                             .foregroundColor(.red)
                             .font(.caption)
                             .textCase(.uppercase)
-                        Text("\(entry.date.toFormat("d"))")
+                        Text("\(entry.date.convertTo(region: .current).toFormat("d"))")
                     }
                     .frame(width: 45, height: 45)
                     .clipShape(RoundedRectangle(cornerRadius: 11.25, style: .continuous))
@@ -39,7 +39,7 @@ struct DailyAnalyticsRow: View {
                     }
                     
                     Spacer()
-                    Text("\(entry.date.timeToString())")
+                    Text("\(entry.date.convertTo(region: .current).toFormat("h:mm a"))")
                         .textCase(.lowercase)
                         .foregroundColor(.secondary)
                         .font(.caption)

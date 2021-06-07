@@ -29,7 +29,6 @@
 		0A7367D3265FD69C002CF722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7367D1265FD69C002CF722 /* LaunchScreen.storyboard */; };
 		0AA129FA266515C6003CD4AB /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA129F9266515C6003CD4AB /* UIFont+.swift */; };
 		0AA4C5AA2664607F00555E54 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA4C5A92664607F00555E54 /* AnalyticsView.swift */; };
-		0AC60CAA266DE70700021DC4 /* DateEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CA9266DE70700021DC4 /* DateEngine.swift */; };
 		0AC60CAD266DE75100021DC4 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC60CAC266DE75100021DC4 /* SwiftDate */; };
 		0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */; };
 		0AC60CB1266DFCCF00021DC4 /* DailyAnalyticsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */; };
@@ -61,7 +60,6 @@
 		0A7367D4265FD69C002CF722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AA129F9266515C6003CD4AB /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		0AA4C5A92664607F00555E54 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
-		0AC60CA9266DE70700021DC4 /* DateEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEngine.swift; sourceTree = "<group>"; };
 		0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheet.swift; sourceTree = "<group>"; };
 		0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAnalyticsRow.swift; sourceTree = "<group>"; };
 		0AC60CB2266E097C00021DC4 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				0A15CBB12663390C00D14750 /* SaveEngine.swift */,
-				0AC60CA9266DE70700021DC4 /* DateEngine.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -302,7 +299,6 @@
 				0AA4C5AA2664607F00555E54 /* AnalyticsView.swift in Sources */,
 				0A0E1C93266214C500F08706 /* NSAttributedString+.swift in Sources */,
 				0AA129FA266515C6003CD4AB /* UIFont+.swift in Sources */,
-				0AC60CAA266DE70700021DC4 /* DateEngine.swift in Sources */,
 				0A0E1C9126620F6000F08706 /* UIStackView+.swift in Sources */,
 				0A0E1C892662057C00F08706 /* EntryViewModel.swift in Sources */,
 				0A4C4CA026635A8F00FE70FF /* AddEntryView.swift in Sources */,
