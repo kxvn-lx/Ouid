@@ -30,9 +30,11 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     @Published var totalAmount: Measurement<UnitMass> = Measurement(value: 0.0, unit: .grams)
     @Published var selectedFrequency: Frequency = .day {
         didSet {
+            arrowCount = 0
             renderAnalytics()
         }
     }
+    @Published var totalAmountTitle = "Today"
     
     override init() {
         super.init()
@@ -49,12 +51,22 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     
+    func delete(entryAt offsets: IndexSet) {
+        let entryToDelete = offsets.map({ filteredEntries[$0] }).first!
+        
+        SaveEngine.shared.delete(entry: entryToDelete) { [weak self] entries in
+            guard let self = self else { return }
+            self.entries = entries
+        }
+    }
+    
     /// Main function
     private func renderAnalytics() {
         filteredEntries = filterEntries(arrowCount: arrowCount)
         filteredEntries = filteredEntries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
         
         totalAmount = calculateTotalAmount()
+        totalAmountTitle = parseTotalAmountTitle()
     }
     
     private func filterEntries(arrowCount: Int) -> [Entry] {
@@ -82,6 +94,49 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
         
         return .init(value: amount, unit: .grams)
+    }
+    
+    private func parseTotalAmountTitle() -> String {
+        var title = ""
+        
+        switch selectedFrequency {
+        case .day:
+            if arrowCount == 0 {
+                title = "Today"
+            } else if arrowCount == -1 {
+                title = "Yesterday (\((Date() + arrowCount.days).toFormat("d MMMM")))"
+            } else {
+                title = (Date() + arrowCount.days).toFormat("d MMMM")
+            }
+            break
+        case .week:
+            let selectedDate = Date() + arrowCount.weeks
+            let firstDayOfWeek = selectedDate.dateAtStartOf(.weekOfYear)
+            let lastDayOfWeek = selectedDate.dateAtEndOf(.weekOfYear)
+            
+            let firstDayTitle = firstDayOfWeek.toFormat("d MMM")
+            let lastDayTitle = lastDayOfWeek.toFormat("d MMM")
+            
+            if arrowCount == 0 {
+                title = "This Week"
+            } else if arrowCount == -1 {
+                title = "Last Week (\(firstDayTitle) - \(lastDayTitle))"
+            } else {
+                title = "\(firstDayTitle) - \(lastDayTitle)"
+            }
+            break
+        case .month:
+            if arrowCount == 0 {
+                title = "This Month (\(Date().toFormat("MMMM")))"
+            } else if arrowCount == -1 {
+                title = "Last Month (\((Date() - 1.months).toFormat("MMMM")))"
+            } else {
+                title = (Date() + arrowCount.months).toFormat("MMMM")
+            }
+            break
+        }
+        
+        return title
     }
     
     @objc private func calendarDayDidChange(_ notification : NSNotification) {

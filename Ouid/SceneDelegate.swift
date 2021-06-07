@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = UIWindow(windowScene: windowScene)
 
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let analyticsVC = UIHostingController(rootView: AnalyticsView())
+        let analyticsVC = UIHostingController(rootView: AnalyticsView().environmentObject(AnalyticsViewModel()))
         let rootNC = UINavigationController(rootViewController: analyticsVC)
         rootNC.navigationBar.prefersLargeTitles = true
         self.window?.rootViewController = rootNC

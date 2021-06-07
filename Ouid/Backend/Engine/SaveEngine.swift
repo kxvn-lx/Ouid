@@ -43,15 +43,22 @@ struct SaveEngine {
         newEntries?(savedEntries)
     }
     
-    public mutating func save(_ entry: Entry, newEntries: (([Entry]) -> Void)?) {
-        if savedEntries.contains(entry) {
-            savedEntries.removeAll(where: { $0 == entry })
-        } else {
-            savedEntries.append(entry)
-        }
-        
+    mutating func save(_ entry: Entry, newEntries: (([Entry]) -> Void)?) {
+    if savedEntries.contains(entry) {
+        savedEntries.removeAll(where: { $0 == entry })
+    } else {
+        savedEntries.append(entry)
+    }
+    
+    save()
+    load(newEntries: newEntries)
+}
+    
+    mutating func delete(entry: Entry, newEntries: (([Entry]) -> Void)?) {
+        savedEntries.removeAll(where: { $0 == entry })
         save()
-        load(newEntries: newEntries)
+        
+        newEntries?(savedEntries)
     }
     
     /**

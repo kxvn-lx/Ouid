@@ -10,7 +10,7 @@ import Combine
 
 // MARK: - Main
 struct AnalyticsView: View {
-    @ObservedObject private var viewModel = AnalyticsViewModel()
+    @EnvironmentObject private var viewModel: AnalyticsViewModel
     @State private var isShowingEntries = true
     @State private var activeSheet: ActiveSheet?
     
@@ -26,9 +26,10 @@ struct AnalyticsView: View {
                 }
                 .textCase(nil)
                 
-                Section(header: Text("Total Amount Smoked")) {
+                Section {
                     totalAmountSmokedView
                 }
+                .listRowBackground(Color.clear)
                 
                 Section(header: entriesHeaderView) {
                     Button {
@@ -82,20 +83,29 @@ struct AnalyticsView: View {
             }
         }
     }
+    
+    private func delete(at offsets: IndexSet) {
+        
+    }
 }
 
 // MARK: - Views
 extension AnalyticsView {
     private var totalAmountSmokedView: some View {
         HStack {
-            Text("Today")
-            Spacer()
-            HStack {
-                Text("\(viewModel.totalAmount.value, specifier: "%.2f")")
-                Text("G")
+         Spacer()
+            VStack (spacing: 10) {
+                HStack(alignment: .firstTextBaseline) {
+                    Text("\(viewModel.totalAmount.value, specifier: "%.2f")")
+                        .font(.system(.largeTitle, design: .rounded))
+                    Text("G")
+                        .font(.system(.title3, design: .rounded))
+                }
+                
+                Text(viewModel.totalAmountTitle)
+                    .foregroundColor(.secondary)
             }
-            .font(.system(.body, design: .rounded))
-            .foregroundColor(.secondary)
+            Spacer()
         }
     }
     
@@ -115,30 +125,11 @@ extension AnalyticsView {
             Text("Entries")
             Spacer()
             Button(action: {
-                withAnimation(.linear) {
-                    isShowingEntries.toggle()
-                }
+                isShowingEntries.toggle()
             }, label: {
                 Text(isShowingEntries ? "Hide" : "Show")
             })
             .textCase(nil)
-        }
-    }
-}
-
-// MARK: - Sub views
-struct EntryView: View {
-    let entry: Entry
-    
-    var body: some View {
-        HStack {
-            Spacer()
-            HStack {
-                Text("\(entry.measurement.value, specifier: "%.2f")")
-                Text("\(entry.measurement.unit)")
-            }
-            .font(.system(.body, design: .rounded))
-            .foregroundColor(.secondary)
         }
     }
 }

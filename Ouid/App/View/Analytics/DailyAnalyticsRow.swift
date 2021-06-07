@@ -10,6 +10,7 @@ import SwiftDate
 
 struct DailyAnalyticsRow: View {
     @Binding var entries: [Entry]
+    @EnvironmentObject private var viewModel: AnalyticsViewModel
     
     var body: some View {
         ForEach(entries) { entry in
@@ -37,12 +38,15 @@ struct DailyAnalyticsRow: View {
                 }
                 
                 Spacer()
-                Text("\(entry.date.toFormat("h:mm a"))")
+                Text("\(entry.date.timeToString())")
                     .textCase(.lowercase)
                     .foregroundColor(.secondary)
                     .font(.caption)
             }
         }
+        .onDelete(perform: { indexSet in
+            viewModel.delete(entryAt: indexSet)
+        })
     }
 }
 
