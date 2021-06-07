@@ -20,7 +20,6 @@
 		0A0E1C93266214C500F08706 /* NSAttributedString+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E1C92266214C500F08706 /* NSAttributedString+.swift */; };
 		0A15CBB22663390C00D14750 /* SaveEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15CBB12663390C00D14750 /* SaveEngine.swift */; };
 		0A15CBB426633AF100D14750 /* EmptyEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15CBB326633AF100D14750 /* EmptyEntriesView.swift */; };
-		0A37AC022665EE9200381F11 /* MonthlyAnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A37AC012665EE9200381F11 /* MonthlyAnalyticsView.swift */; };
 		0A4C4CA026635A8F00FE70FF /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4C9F26635A8F00FE70FF /* AddEntryView.swift */; };
 		0A4C4CA32663833A00FE70FF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4CA22663833A00FE70FF /* HomeViewController.swift */; };
 		0A4C4CA82663A7B000FE70FF /* AnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */; };
@@ -30,6 +29,9 @@
 		0A7367D3265FD69C002CF722 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7367D1265FD69C002CF722 /* LaunchScreen.storyboard */; };
 		0AA129FA266515C6003CD4AB /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA129F9266515C6003CD4AB /* UIFont+.swift */; };
 		0AA4C5AA2664607F00555E54 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA4C5A92664607F00555E54 /* AnalyticsView.swift */; };
+		0AC60CAA266DE70700021DC4 /* DateEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CA9266DE70700021DC4 /* DateEngine.swift */; };
+		0AC60CAD266DE75100021DC4 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC60CAC266DE75100021DC4 /* SwiftDate */; };
+		0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +47,6 @@
 		0A0E1C92266214C500F08706 /* NSAttributedString+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+.swift"; sourceTree = "<group>"; };
 		0A15CBB12663390C00D14750 /* SaveEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveEngine.swift; sourceTree = "<group>"; };
 		0A15CBB326633AF100D14750 /* EmptyEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEntriesView.swift; sourceTree = "<group>"; };
-		0A37AC012665EE9200381F11 /* MonthlyAnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthlyAnalyticsView.swift; sourceTree = "<group>"; };
 		0A4C4C9F26635A8F00FE70FF /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		0A4C4CA22663833A00FE70FF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewModel.swift; sourceTree = "<group>"; };
@@ -57,6 +58,8 @@
 		0A7367D4265FD69C002CF722 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AA129F9266515C6003CD4AB /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		0AA4C5A92664607F00555E54 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
+		0AC60CA9266DE70700021DC4 /* DateEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEngine.swift; sourceTree = "<group>"; };
+		0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AC60CAD266DE75100021DC4 /* SwiftDate in Frameworks */,
 				0A0E1C782661FF5900F08706 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +94,7 @@
 				0A4C4CA42663A71C00FE70FF /* Analytics */,
 				0A4C4CA1266382E900FE70FF /* Home */,
 				0A0E1C7B2662007C00F08706 /* Entry */,
+				0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -128,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				0A15CBB12663390C00D14750 /* SaveEngine.swift */,
+				0AC60CA9266DE70700021DC4 /* DateEngine.swift */,
 			);
 			path = Engine;
 			sourceTree = "<group>";
@@ -145,7 +151,6 @@
 			children = (
 				0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */,
 				0AA4C5A92664607F00555E54 /* AnalyticsView.swift */,
-				0A37AC012665EE9200381F11 /* MonthlyAnalyticsView.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -207,6 +212,7 @@
 			name = Ouid;
 			packageProductDependencies = (
 				0A0E1C772661FF5900F08706 /* SnapKit */,
+				0AC60CAC266DE75100021DC4 /* SwiftDate */,
 			);
 			productName = Ouid;
 			productReference = 0A7367C3265FD69B002CF722 /* Ouid.app */;
@@ -237,6 +243,7 @@
 			mainGroup = 0A7367BA265FD69B002CF722;
 			packageReferences = (
 				0A0E1C762661FF5900F08706 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0AC60CAB266DE75100021DC4 /* XCRemoteSwiftPackageReference "SwiftDate" */,
 			);
 			productRefGroup = 0A7367C4265FD69B002CF722 /* Products */;
 			projectDirPath = "";
@@ -266,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A0E1C872662048800F08706 /* Date+.swift in Sources */,
+				0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */,
 				0A0E1C85266203AA00F08706 /* Entry.swift in Sources */,
 				0A4C4CA82663A7B000FE70FF /* AnalyticsViewModel.swift in Sources */,
 				0A0E1C7E2662009200F08706 /* EntryTableViewCell.swift in Sources */,
@@ -276,6 +284,7 @@
 				0AA4C5AA2664607F00555E54 /* AnalyticsView.swift in Sources */,
 				0A0E1C93266214C500F08706 /* NSAttributedString+.swift in Sources */,
 				0AA129FA266515C6003CD4AB /* UIFont+.swift in Sources */,
+				0AC60CAA266DE70700021DC4 /* DateEngine.swift in Sources */,
 				0A0E1C9126620F6000F08706 /* UIStackView+.swift in Sources */,
 				0A0E1C892662057C00F08706 /* EntryViewModel.swift in Sources */,
 				0A4C4CA026635A8F00FE70FF /* AddEntryView.swift in Sources */,
@@ -283,7 +292,6 @@
 				0A0E1C8D2662067000F08706 /* DateView.swift in Sources */,
 				0A0E1C7A2662005100F08706 /* EntryTableViewController.swift in Sources */,
 				0A7367C9265FD69B002CF722 /* SceneDelegate.swift in Sources */,
-				0A37AC022665EE9200381F11 /* MonthlyAnalyticsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -487,6 +495,14 @@
 				minimumVersion = 5.0.1;
 			};
 		};
+		0AC60CAB266DE75100021DC4 /* XCRemoteSwiftPackageReference "SwiftDate" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/malcommac/SwiftDate";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.3.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -494,6 +510,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A0E1C762661FF5900F08706 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		0AC60CAC266DE75100021DC4 /* SwiftDate */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AC60CAB266DE75100021DC4 /* XCRemoteSwiftPackageReference "SwiftDate" */;
+			productName = SwiftDate;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

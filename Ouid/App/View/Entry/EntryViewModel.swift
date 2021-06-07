@@ -13,14 +13,13 @@ class EntryViewModel {
             entries = entries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
         }
     }
-    private var saveEngine = SaveEngine()
     
     init() {
-        entries = saveEngine.savedEntries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
+        entries = SaveEngine.shared.savedEntries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
     }
     
     func save(_ entry: Entry) {
-        saveEngine.save(entry)
-        entries = saveEngine.savedEntries
+//        saveEngine.save(entry)
+        entries = SaveEngine.shared.savedEntries
     }
 }

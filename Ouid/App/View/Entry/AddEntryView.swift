@@ -39,18 +39,12 @@ class AddEntryViewDelegate: ObservableObject {
 }
 
 struct AddEntryView: View, KeyboardReadable {
-    @ObservedObject var delegate: AddEntryViewDelegate
-    private var dismissAction: (() -> Void)?
+    @Environment(\.presentationMode) private var presentationMode
     @State private var amount = ""
     @State private var date = Date()
     @State private var isUsingCurrentDateTime = true
     @State private var isShowingError = false
     @State private var errorMessage = ""
-    
-    init(delegate: AddEntryViewDelegate, dismissAction: (() -> Void)?) {
-        self.delegate = delegate
-        self.dismissAction = dismissAction
-    }
     
     var body: some View {
         NavigationView {
@@ -78,15 +72,15 @@ struct AddEntryView: View, KeyboardReadable {
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Button("Cancel") {
-                        self.dismissAction!()
+                        self.presentationMode.wrappedValue.dismiss()
                     }
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Done") {
                         if let amount = Double(amount) {
-                            delegate.newEntry = .init(date: date, measurement: .init(value: amount, unit: .grams))
-                            self.dismissAction!()
+                            SaveEngine.shared.save(.init(date: date, measurement: .init(value: amount, unit: .grams)), newEntries: nil)
+                            self.presentationMode.wrappedValue.dismiss()
                         } else {
                             errorMessage = "Unable to create an entry, please double check your input."
                             isShowingError = true

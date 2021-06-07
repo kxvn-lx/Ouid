@@ -68,23 +68,23 @@ class EntryTableViewController: UITableViewController {
     }
     
     private func observeDelegate() {
-        changePublisher = delegate.didChange.sink(receiveValue: { [weak self] delegate in
-            guard let self = self else { return }
-            if let newEntry = delegate.newEntry {
-                self.viewModel.save(newEntry)
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-                return
-            }
-        })
+//        changePublisher = delegate.didChange.sink(receiveValue: { [weak self] delegate in
+//            guard let self = self else { return }
+//            if let newEntry = delegate.newEntry {
+//                self.viewModel.save(newEntry)
+//                DispatchQueue.main.async {
+//                    self.tableView.reloadData()
+//                }
+//                return
+//            }
+//        })
     }
     
     @objc private func addTapped(_ sender: UIBarButtonItem) {
-        let vc = UIHostingController(rootView: AddEntryView(delegate: delegate, dismissAction: {
-            self.dismiss(animated: true, completion: nil)
-        }))
-        self.present(vc, animated: true, completion: nil)
+//        let vc = UIHostingController(rootView: AddEntryView(delegate: delegate, dismissAction: {
+//            self.dismiss(animated: true, completion: nil)
+//        }))
+//        self.present(vc, animated: true, completion: nil)
     }
 }
  

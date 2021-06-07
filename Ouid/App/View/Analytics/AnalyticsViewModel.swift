@@ -7,61 +7,77 @@
 
 import Foundation
 import Combine
-
-struct ScheduleDates {
-    let month: String
-    let dates: [Date]
-}
+import SwiftDate
 
 class AnalyticsViewModel: NSObject, ObservableObject {
-    enum SumAmountState {
-        case day, week, month
+    enum Frequency: String, CaseIterable {
+        case day = "Daily"
+        case week = "Weekly"
+        case month = "Monthly"
     }
     
-    private var saveEngine = SaveEngine()
     private var entries = [Entry]() {
         didSet {
-            calculateAllSumAmount()
+            renderAnalytics()
         }
     }
-    @Published var dayAmount: Double = 0.0
+    private var filteredEntries = [Entry]()
+    
+    @Published var totalAmount: Double = 0.0
+    @Published var selectedFrequency: Frequency = .day {
+        didSet {
+            renderAnalytics()
+        }
+    }
     
     override init() {
         super.init()
         load()
-        calculateAllSumAmount()
+        
         NotificationCenter.default.addObserver(self, selector:#selector(self.calendarDayDidChange(_:)), name:NSNotification.Name.NSCalendarDayChanged, object:nil)
+    }
+    
+    /// reload the entries
+    func load() {
+        SaveEngine.shared.load { [weak self] entries in
+            guard let self = self else { return }
+            self.entries = entries
+        }
+    }
+    
+    private func renderAnalytics() {
+        filteredEntries = filterEntries()
+        totalAmount = calculateTotalAmount()
+    }
+    
+    private func filterEntries() -> [Entry] {
+        var filteredEntries = [Entry]()
+        
+        switch selectedFrequency {
+        case .day:
+            filteredEntries = entries.filter({ $0.date.compare(.isToday) })
+            break
+        case .week:
+            filteredEntries = entries.filter({ $0.date.compare(.isThisWeek) })
+            break
+        case .month:
+            filteredEntries = entries.filter({ $0.date.compare(.isThisMonth) })
+        }
+        
+        return filteredEntries
+    }
+    
+    private func calculateTotalAmount() -> Double {
+        var amount: Double = 0.0
+        
+        for entry in filteredEntries {
+            amount += entry.measurement.value
+        }
+        
+        return amount
     }
     
     @objc private func calendarDayDidChange(_ notification : NSNotification) {
         load()
-    }
-    
-    func load() {
-        saveEngine.load()
-        entries = saveEngine.savedEntries
-    }
-    
-    private func calculateAllSumAmount() {
-        dayAmount = calculateSumAmount(.day)
-    }
-    
-    private func calculateSumAmount(_ type: SumAmountState) -> Double {
-        let calendar = Calendar.current
-        var filteredEntries = [Entry]()
-        var sumAmount: Double = 0.0
-        
-        switch type {
-        case .day:
-            filteredEntries = entries.filter({ calendar.isDateInToday($0.date) })
-            break
-        default: break
-        }
-        
-        for entry in filteredEntries {
-            sumAmount += entry.measurement.value
-        }
-        
-        return sumAmount
     }
 }

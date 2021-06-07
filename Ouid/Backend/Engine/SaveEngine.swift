@@ -9,6 +9,7 @@ import Foundation
 
 struct SaveEngine {
     var savedEntries = [Entry]()
+    static var shared = SaveEngine()
     
     struct SaveData: Codable {
         let savedEntries: [Entry]
@@ -18,11 +19,11 @@ struct SaveEngine {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     
-    init() {
-        load()
+    private init() {
+        load(newEntries: nil)
     }
     
-    mutating func load() {
+    mutating func load(newEntries: (([Entry]) -> Void)?) {
         do {
             filePath = try FileManager.default.url(for: .documentDirectory,
                                                    in: .userDomainMask,
@@ -38,9 +39,11 @@ struct SaveEngine {
         } catch let error {
             fatalError(error.localizedDescription)
         }
+        
+        newEntries?(savedEntries)
     }
     
-    public mutating func save(_ entry: Entry) {
+    public mutating func save(_ entry: Entry, newEntries: (([Entry]) -> Void)?) {
         if savedEntries.contains(entry) {
             savedEntries.removeAll(where: { $0 == entry })
         } else {
@@ -48,7 +51,7 @@ struct SaveEngine {
         }
         
         save()
-        load()
+        load(newEntries: newEntries)
     }
     
     /**
