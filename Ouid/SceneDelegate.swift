@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -14,7 +15,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+
+
+        self.window = UIWindow(windowScene: windowScene)
+
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let analyticsVC = UIHostingController(rootView: AnalyticsView())
+        let rootNC = UINavigationController(rootViewController: analyticsVC)
+        rootNC.navigationBar.prefersLargeTitles = true
+        self.window?.rootViewController = rootNC
+        self.window?.makeKeyAndVisible()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {
