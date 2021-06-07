@@ -22,7 +22,11 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     @Published var filteredEntries = [Entry]()
-    @Published var arrowCount = 0
+    @Published var arrowCount = 0 {
+        didSet {
+            renderAnalytics()
+        }
+    }
     @Published var totalAmount: Measurement<UnitMass> = Measurement(value: 0.0, unit: .grams)
     @Published var selectedFrequency: Frequency = .day {
         didSet {
@@ -47,24 +51,24 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     
     /// Main function
     private func renderAnalytics() {
-        filteredEntries = filterEntries()
+        filteredEntries = filterEntries(arrowCount: arrowCount)
         filteredEntries = filteredEntries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
         
         totalAmount = calculateTotalAmount()
     }
     
-    private func filterEntries() -> [Entry] {
+    private func filterEntries(arrowCount: Int) -> [Entry] {
         var filteredEntries = [Entry]()
-        
         switch selectedFrequency {
         case .day:
-            filteredEntries = entries.filter({ $0.date.compare(.isToday) })
+            filteredEntries = entries.filter({ $0.date.compare(.isSameDay(Date() + arrowCount.days)) })
             break
         case .week:
-            filteredEntries = entries.filter({ $0.date.compare(.isThisWeek) })
+            filteredEntries = entries.filter({ $0.date.compare(.isSameWeek(Date() + arrowCount.weeks)) })
             break
         case .month:
-            filteredEntries = entries.filter({ $0.date.compare(.isThisMonth) })
+            filteredEntries = entries.filter({ $0.date.compare(.isSameMonth(Date() + arrowCount.months)) })
+            break
         }
         
         return filteredEntries

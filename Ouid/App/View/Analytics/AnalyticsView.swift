@@ -62,6 +62,7 @@ struct AnalyticsView: View {
         .toolbar {
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
+                    TapticHelper.shared.lightTaptic()
                     viewModel.arrowCount -= 1
                 }, label: {
                     Image(systemName: "chevron.left.circle")
@@ -72,6 +73,7 @@ struct AnalyticsView: View {
             }
             ToolbarItem(placement: .bottomBar) {
                 Button(action: {
+                    TapticHelper.shared.lightTaptic()
                     viewModel.arrowCount += 1
                 }, label: {
                     Image(systemName: "chevron.right.circle")

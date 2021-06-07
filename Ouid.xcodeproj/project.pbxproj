@@ -34,6 +34,7 @@
 		0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */; };
 		0AC60CB1266DFCCF00021DC4 /* DailyAnalyticsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */; };
 		0AC60CB3266E097C00021DC4 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB2266E097C00021DC4 /* Color+.swift */; };
+		0AC60CB6266E1ACF00021DC4 /* TapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB5266E1ACF00021DC4 /* TapticHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheet.swift; sourceTree = "<group>"; };
 		0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAnalyticsRow.swift; sourceTree = "<group>"; };
 		0AC60CB2266E097C00021DC4 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
+		0AC60CB5266E1ACF00021DC4 /* TapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,8 +156,8 @@
 		0A4C4CA42663A71C00FE70FF /* Analytics */ = {
 			isa = PBXGroup;
 			children = (
-				0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */,
 				0AA4C5A92664607F00555E54 /* AnalyticsView.swift */,
+				0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */,
 				0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */,
 			);
 			path = Analytics;
@@ -195,9 +197,18 @@
 		0A7367DA265FD6CC002CF722 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				0AC60CB4266E1AC700021DC4 /* Utils */,
 				0A0E1C7F2662029200F08706 /* View */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		0AC60CB4266E1AC700021DC4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0AC60CB5266E1ACF00021DC4 /* TapticHelper.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +308,7 @@
 				0A4C4CA026635A8F00FE70FF /* AddEntryView.swift in Sources */,
 				0A15CBB426633AF100D14750 /* EmptyEntriesView.swift in Sources */,
 				0A0E1C8D2662067000F08706 /* DateView.swift in Sources */,
+				0AC60CB6266E1ACF00021DC4 /* TapticHelper.swift in Sources */,
 				0AC60CB3266E097C00021DC4 /* Color+.swift in Sources */,
 				0A0E1C7A2662005100F08706 /* EntryTableViewController.swift in Sources */,
 				0A7367C9265FD69B002CF722 /* SceneDelegate.swift in Sources */,
