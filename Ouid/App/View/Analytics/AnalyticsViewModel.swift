@@ -22,7 +22,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     @Published var filteredEntries = [Entry]()
-    
+    @Published var arrowCount = 0
     @Published var totalAmount: Measurement<UnitMass> = Measurement(value: 0.0, unit: .grams)
     @Published var selectedFrequency: Frequency = .day {
         didSet {
@@ -48,6 +48,8 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     /// Main function
     private func renderAnalytics() {
         filteredEntries = filterEntries()
+        filteredEntries = filteredEntries.sorted(by: { $0.date.compare($1.date) == .orderedDescending })
+        
         totalAmount = calculateTotalAmount()
     }
     

@@ -33,6 +33,7 @@
 		0AC60CAD266DE75100021DC4 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC60CAC266DE75100021DC4 /* SwiftDate */; };
 		0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */; };
 		0AC60CB1266DFCCF00021DC4 /* DailyAnalyticsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */; };
+		0AC60CB3266E097C00021DC4 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB2266E097C00021DC4 /* Color+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		0AC60CA9266DE70700021DC4 /* DateEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEngine.swift; sourceTree = "<group>"; };
 		0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheet.swift; sourceTree = "<group>"; };
 		0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAnalyticsRow.swift; sourceTree = "<group>"; };
+		0AC60CB2266E097C00021DC4 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				0A0E1C9026620F6000F08706 /* UIStackView+.swift */,
 				0A0E1C92266214C500F08706 /* NSAttributedString+.swift */,
 				0AA129F9266515C6003CD4AB /* UIFont+.swift */,
+				0AC60CB2266E097C00021DC4 /* Color+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				0A4C4CA026635A8F00FE70FF /* AddEntryView.swift in Sources */,
 				0A15CBB426633AF100D14750 /* EmptyEntriesView.swift in Sources */,
 				0A0E1C8D2662067000F08706 /* DateView.swift in Sources */,
+				0AC60CB3266E097C00021DC4 /* Color+.swift in Sources */,
 				0A0E1C7A2662005100F08706 /* EntryTableViewController.swift in Sources */,
 				0A7367C9265FD69B002CF722 /* SceneDelegate.swift in Sources */,
 			);

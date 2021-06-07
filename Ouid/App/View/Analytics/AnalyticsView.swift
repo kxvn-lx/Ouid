@@ -11,7 +11,7 @@ import Combine
 // MARK: - Main
 struct AnalyticsView: View {
     @ObservedObject private var viewModel = AnalyticsViewModel()
-    @State private var isShowingEntries = false
+    @State private var isShowingEntries = true
     @State private var activeSheet: ActiveSheet?
     
     init() {
@@ -42,7 +42,7 @@ struct AnalyticsView: View {
                     }
                     
                     if isShowingEntries {
-                        entriesView
+                        DailyAnalyticsRow(entries: $viewModel.filteredEntries)
                     }
                 }
             }
@@ -50,7 +50,7 @@ struct AnalyticsView: View {
         .onAppear(perform: {
             viewModel.load()
         })
-        .navigationBarTitle("Analytics", displayMode: .large)
+        .navigationBarTitle("Dashboard", displayMode: .large)
         .sheet(item: $activeSheet) {
             viewModel.load()
         } content: { item in
@@ -59,7 +59,26 @@ struct AnalyticsView: View {
                 AddEntryView()
             }
         }
-
+        .toolbar {
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: {
+                    viewModel.arrowCount -= 1
+                }, label: {
+                    Image(systemName: "chevron.left.circle")
+                })
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Spacer()
+            }
+            ToolbarItem(placement: .bottomBar) {
+                Button(action: {
+                    viewModel.arrowCount += 1
+                }, label: {
+                    Image(systemName: "chevron.right.circle")
+                })
+                .disabled(viewModel.arrowCount == 0)
+            }
+        }
     }
 }
 
@@ -94,19 +113,13 @@ extension AnalyticsView {
             Text("Entries")
             Spacer()
             Button(action: {
-                isShowingEntries.toggle()
+                withAnimation(.linear) {
+                    isShowingEntries.toggle()
+                }
             }, label: {
                 Text(isShowingEntries ? "Hide" : "Show")
             })
             .textCase(nil)
-        }
-    }
-    
-    private var entriesView: some View {
-        switch viewModel.selectedFrequency {
-        case .day: return AnyView(DailyAnalyticsRow(entries: $viewModel.filteredEntries))
-        case .week: return AnyView(WeeklyAnalyticsRow(entries: $viewModel.filteredEntries))
-        case .month: return AnyView(MonthlyAnalyticsRow(entries: $viewModel.filteredEntries))
         }
     }
 }
