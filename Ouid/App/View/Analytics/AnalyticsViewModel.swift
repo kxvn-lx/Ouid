@@ -97,8 +97,8 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             let diffs = Calendar.current.dateComponents([.day], from: Date(), to: earlistEntry.date)
             return diffs.day!
         case .week:
-            let diffs = Calendar.current.dateComponents([.weekday], from: Date(), to: earlistEntry.date)
-            return diffs.weekday!
+            let diffs = Calendar.current.dateComponents([.weekOfYear], from: Date(), to: earlistEntry.date)
+            return diffs.weekOfYear!
         case .month:
             let diffs = Calendar.current.dateComponents([.weekOfMonth], from: Date(), to: earlistEntry.date)
             return diffs.weekOfMonth!
