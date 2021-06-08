@@ -17,30 +17,22 @@ class ScrollToModel: ObservableObject {
 
 struct AllEntriesView: View {
     @StateObject private var vm = ScrollToModel()
-    let entries: [Entry]
+    @EnvironmentObject private var viewModel: AnalyticsViewModel
+    private let entries: [Entry]
+    
+    init(entries: [Entry]) {
+        self.entries = entries
+    }
     
     var body: some View {
-        ScrollView {
-            ScrollViewReader { sp in
-                LazyVStack {
-                    ForEach(entries) { entry in
-                        AnalyticsRow(entry: entry)
-                    }
-                }.onReceive(vm.$direction) { action in
-                    guard !entries.isEmpty else { return }
-                    withAnimation {
-                        switch action {
-                        case .top:
-                            sp.scrollTo(entries.first!, anchor: .top)
-                        case .end:
-                            sp.scrollTo(entries.last!, anchor: .bottom)
-                        default:
-                            return
-                        }
-                    }
+        Form {
+            Section {
+                ForEach(entries) { entry in
+                    AnalyticsRow(entry: entry)
                 }
             }
         }
+        .navigationBarTitle(viewModel.totalAmountTitle, displayMode: .inline)
     }
 }
 
