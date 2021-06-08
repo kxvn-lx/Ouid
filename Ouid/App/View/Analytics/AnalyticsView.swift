@@ -11,7 +11,6 @@ import Combine
 // MARK: - Main
 struct AnalyticsView: View {
     @EnvironmentObject private var viewModel: AnalyticsViewModel
-    @State private var isShowingEntries = true
     @State private var activeSheet: ActiveSheet?
     
     init() {
@@ -32,15 +31,14 @@ struct AnalyticsView: View {
                 .listRowBackground(Color.clear)
                 
                 Section(header: entriesHeaderView) {
-                    if isShowingEntries {
-                        DailyAnalyticsRow(entries: $viewModel.filteredEntries)
-                    } else {
-                        HStack {
-                            Spacer()
-                            Text("You have \(viewModel.filteredEntries.count) entries.")
-                                .foregroundColor(.secondary)
-                            Spacer()
-                        }
+                    EntriesRow(entries: $viewModel.filteredEntries)
+                    if viewModel.shouldDisplayAllEntriesButton() {
+                        NavigationLink(
+                            destination: AllEntriesView(entries: viewModel.filteredEntries),
+                            label: {
+                                Text("See all \(viewModel.filteredEntries.count) entries")
+                                    .foregroundColor(.accentColor)
+                            })
                     }
                 }
             }
@@ -139,13 +137,6 @@ extension AnalyticsView {
                     Image(systemName: "plus.circle")
                 }
             }
-            Spacer()
-            Button(action: {
-                isShowingEntries.toggle()
-            }, label: {
-                Text(isShowingEntries ? "Hide" : "Show")
-            })
-            .textCase(nil)
         }
     }
 }

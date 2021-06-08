@@ -16,6 +16,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         case month = "Monthly"
     }
     
+    static let MAX_ENTRIES = 5
     private var entries = [Entry]() {
         didSet {
             renderAnalytics()
@@ -66,6 +67,13 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         case .week: return "This Week"
         case .month: return "This Month"
         }
+    }
+    
+    func shouldDisplayAllEntriesButton() -> Bool {
+        let filteredCount = filteredEntries.count
+        let difference = filteredCount - Self.MAX_ENTRIES
+        
+        return difference >= 5
     }
     
     /// Main function
@@ -129,7 +137,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         switch selectedFrequency {
         case .day:
             if arrowCount == 0 {
-                title = "Today"
+                title = "Today (\((Date() + arrowCount.days).toFormat("d MMMM")))"
             } else if arrowCount == -1 {
                 title = "Yesterday (\((Date() + arrowCount.days).toFormat("d MMMM")))"
             } else {
@@ -145,7 +153,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             let lastDayTitle = lastDayOfWeek.toFormat("d MMM")
             
             if arrowCount == 0 {
-                title = "This Week"
+                title = "This Week (\(firstDayTitle) - \(lastDayTitle))"
             } else if arrowCount == -1 {
                 title = "Last Week (\(firstDayTitle) - \(lastDayTitle))"
             } else {

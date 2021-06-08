@@ -23,6 +23,7 @@
 		0A4C4CA026635A8F00FE70FF /* AddEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4C9F26635A8F00FE70FF /* AddEntryView.swift */; };
 		0A4C4CA32663833A00FE70FF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4CA22663833A00FE70FF /* HomeViewController.swift */; };
 		0A4C4CA82663A7B000FE70FF /* AnalyticsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */; };
+		0A704BDA266EF5C600B3CC0E /* AllEntriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A704BD9266EF5C600B3CC0E /* AllEntriesView.swift */; };
 		0A7367C7265FD69B002CF722 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7367C6265FD69B002CF722 /* AppDelegate.swift */; };
 		0A7367C9265FD69B002CF722 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7367C8265FD69B002CF722 /* SceneDelegate.swift */; };
 		0A7367D0265FD69C002CF722 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A7367CF265FD69C002CF722 /* Assets.xcassets */; };
@@ -31,7 +32,7 @@
 		0AA4C5AA2664607F00555E54 /* AnalyticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA4C5A92664607F00555E54 /* AnalyticsView.swift */; };
 		0AC60CAD266DE75100021DC4 /* SwiftDate in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC60CAC266DE75100021DC4 /* SwiftDate */; };
 		0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */; };
-		0AC60CB1266DFCCF00021DC4 /* DailyAnalyticsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */; };
+		0AC60CB1266DFCCF00021DC4 /* EntriesRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB0266DFCCF00021DC4 /* EntriesRow.swift */; };
 		0AC60CB3266E097C00021DC4 /* Color+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB2266E097C00021DC4 /* Color+.swift */; };
 		0AC60CB6266E1ACF00021DC4 /* TapticHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC60CB5266E1ACF00021DC4 /* TapticHelper.swift */; };
 /* End PBXBuildFile section */
@@ -52,6 +53,7 @@
 		0A4C4C9F26635A8F00FE70FF /* AddEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEntryView.swift; sourceTree = "<group>"; };
 		0A4C4CA22663833A00FE70FF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsViewModel.swift; sourceTree = "<group>"; };
+		0A704BD9266EF5C600B3CC0E /* AllEntriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEntriesView.swift; sourceTree = "<group>"; };
 		0A7367C3265FD69B002CF722 /* Ouid.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ouid.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A7367C6265FD69B002CF722 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A7367C8265FD69B002CF722 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,7 +63,7 @@
 		0AA129F9266515C6003CD4AB /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		0AA4C5A92664607F00555E54 /* AnalyticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsView.swift; sourceTree = "<group>"; };
 		0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveSheet.swift; sourceTree = "<group>"; };
-		0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAnalyticsRow.swift; sourceTree = "<group>"; };
+		0AC60CB0266DFCCF00021DC4 /* EntriesRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntriesRow.swift; sourceTree = "<group>"; };
 		0AC60CB2266E097C00021DC4 /* Color+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+.swift"; sourceTree = "<group>"; };
 		0AC60CB5266E1ACF00021DC4 /* TapticHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapticHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -155,7 +157,8 @@
 			children = (
 				0AA4C5A92664607F00555E54 /* AnalyticsView.swift */,
 				0A4C4CA72663A7B000FE70FF /* AnalyticsViewModel.swift */,
-				0AC60CB0266DFCCF00021DC4 /* DailyAnalyticsRow.swift */,
+				0AC60CB0266DFCCF00021DC4 /* EntriesRow.swift */,
+				0A704BD9266EF5C600B3CC0E /* AllEntriesView.swift */,
 			);
 			path = Analytics;
 			sourceTree = "<group>";
@@ -286,7 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0AC60CB1266DFCCF00021DC4 /* DailyAnalyticsRow.swift in Sources */,
+				0AC60CB1266DFCCF00021DC4 /* EntriesRow.swift in Sources */,
 				0A0E1C872662048800F08706 /* Date+.swift in Sources */,
 				0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */,
 				0A0E1C85266203AA00F08706 /* Entry.swift in Sources */,
@@ -302,6 +305,7 @@
 				0A0E1C9126620F6000F08706 /* UIStackView+.swift in Sources */,
 				0A0E1C892662057C00F08706 /* EntryViewModel.swift in Sources */,
 				0A4C4CA026635A8F00FE70FF /* AddEntryView.swift in Sources */,
+				0A704BDA266EF5C600B3CC0E /* AllEntriesView.swift in Sources */,
 				0A15CBB426633AF100D14750 /* EmptyEntriesView.swift in Sources */,
 				0A0E1C8D2662067000F08706 /* DateView.swift in Sources */,
 				0AC60CB6266E1ACF00021DC4 /* TapticHelper.swift in Sources */,
