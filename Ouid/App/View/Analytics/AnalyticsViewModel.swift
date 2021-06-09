@@ -95,6 +95,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     
+    /// MARK: - Helper methods
     private func getMinArrowCount() -> Int {
         let earlistEntry = entries.sorted(by: { $0.date.compare($1.date) == .orderedDescending }).last!
         
@@ -182,36 +183,67 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     
     private func calculateChartData() -> [Double] {
         var data = [Double]()
-        let WEEK = 7
-        let MONTH = 4
         
+        switch selectedFrequency {
+        case .day: break
+        case .week:
+            data = processWeeklyChartData()
+            break
+        case .month:
+            data = processMonthlyChartData()
+            break
+        }
+        
+        return data
+    }
+    
+    private func processWeeklyChartData() -> [Double] {
+        var data = [Double]()
+        let WEEK = 7
+        
+        // Group entries by the weekday
         let groupDic = Dictionary(grouping: filteredEntries) { (entry) -> DateComponents in
             let date = Calendar.current.dateComponents([.weekday], from: (entry.date))
             return date
         }
         .sorted(by: { $0.key.weekday! < $1.key.weekday! })
         
-        switch selectedFrequency {
-        case .day: break
-        case .week:
-            for (_, value) in groupDic {
-                let valueSum = value.reduce(0.0) { x, y in
-                    x + y.measurement.value
-                }
-                data.append(valueSum)
+        for (_, value) in groupDic {
+            let valueSum = value.reduce(0.0) { x, y in
+                x + y.measurement.value
             }
-            
-            let diff = WEEK - data.count
-            if data.count != WEEK {
-                for _ in 1...diff {
-                    data.append(0.0)
-                }
+            data.append(valueSum)
+        }
+        
+        let diff = WEEK - data.count
+        if data.count != WEEK {
+            for _ in 1...diff {
+                data.append(0.0)
             }
-            break
-        case .month: break
         }
         
         return data
+    }
+    
+    private func processMonthlyChartData() -> [Double] {
+        var data: [Double] = .init(repeating: 0.0, count: 4)
+        
+        for entry in filteredEntries {
+            let index = getEntryWeek(entry)
+            data[index] = data[index] + entry.measurement.value
+        }
+        
+        return data
+    }
+    
+    private func getEntryWeek(_ entry: Entry) -> Int {
+        for index in 0...3 {
+            let firstDayOfMonth = Date().dateAt(.startOfMonth)
+            if entry.date.compare(.isSameWeek(firstDayOfMonth + index.weeks)) {
+                return index
+            }
+        }
+        return 0
     }
     
     @objc private func calendarDayDidChange(_ notification : NSNotification) {

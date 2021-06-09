@@ -145,11 +145,9 @@ extension AnalyticsView {
     private var graphView: some View {
         switch viewModel.selectedFrequency {
         case .day: EmptyView()
-        case .week:
-            
+        case .week, .month:
             ChartView(data: $viewModel.chartData)
                 .frame(maxWidth: .infinity)
-        case .month: EmptyView()
         }
     }
 }
