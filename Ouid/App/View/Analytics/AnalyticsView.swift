@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import SwiftUICharts
 
 // MARK: - Main
 struct AnalyticsView: View {
@@ -29,7 +28,7 @@ struct AnalyticsView: View {
                 
                 if viewModel.selectedFrequency != .day {
                     Section(header: Text("Graph")) {
-                        ChartView(data: viewModel.chartData)
+                        ChartView(data: $viewModel.chartData)
                             .frame(maxWidth: .infinity)
                     }
                 }

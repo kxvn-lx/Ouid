@@ -182,17 +182,34 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     
     private func calculateChartData() -> [Double] {
         var data = [Double]()
+        let WEEK = 7
+        let MONTH = 4
         
         let groupDic = Dictionary(grouping: filteredEntries) { (entry) -> DateComponents in
-            let date = Calendar.current.dateComponents([.day, .year, .month], from: (entry.date))
+            let date = Calendar.current.dateComponents([.weekday], from: (entry.date))
             return date
         }
+        .sorted(by: { $0.key.weekday! < $1.key.weekday! })
         
-        for (_, value) in groupDic {
-            let valueSum = value.reduce(0.0) { x, y in
-                x + y.measurement.value
+        switch selectedFrequency {
+        case .day: break
+        case .week:
+            for (key, value) in groupDic {
+                print(key)
+                let valueSum = value.reduce(0.0) { x, y in
+                    x + y.measurement.value
+                }
+                data.append(valueSum)
             }
-            data.append(valueSum)
+            
+            let diff = WEEK - data.count
+            if data.count != WEEK {
+                for _ in 1...diff {
+                    data.append(0.0)
+                }
+            }
+            break
+        case .month: break
         }
         
         return data
