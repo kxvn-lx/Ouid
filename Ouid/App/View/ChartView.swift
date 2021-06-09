@@ -64,14 +64,14 @@ extension ChartView {
                         ZStack(alignment: .top) {
                             RoundedRectangle(cornerRadius: 5, style: .continuous)
                                 .fill(Color.accentColor)
-                                .frame(width: 20, height: min(CGFloat(data[index]) * multiplier, multiplier))
+                                .frame(width: 20, height: calculateBarHeight(at: index))
                             
                             if data[index] != 0.0 {
                                 Text("\(data[index], specifier: "%.2f")")
-                                    .foregroundColor(.systemBackground)
+                                    .foregroundColor(data[index] > 0.5 ? .systemBackground : .label)
                                     .font(.system(.caption, design: .monospaced))
                                     .rotationEffect(.degrees(-90))
-                                    .offset(y: data[index] < 0.25 ? 0 : 10)
+                                    .offset(y: data[index] < 0.5 ? -25 : 10)
                             }
                         }
                     }
@@ -84,6 +84,11 @@ extension ChartView {
             }
         }
         .padding([.top, .bottom])
+    }
+    
+    private func calculateBarHeight(at index: Int) -> CGFloat {
+        let perc = data[index] * (viewModel.selectedFrequency == .week ? 0.5 : 0.75)
+        return CGFloat(data[index] - perc) * multiplier
     }
 }
 
