@@ -26,7 +26,9 @@ struct AnalyticsView: View {
                 }
                 .listRowBackground(Color.clear)
                 
-                graphView
+                Section {
+                    graphView
+                }
                 
                 Section(header: entriesHeaderView) {
                     EntriesRow(entries: $viewModel.filteredEntries)
@@ -144,10 +146,9 @@ extension AnalyticsView {
         switch viewModel.selectedFrequency {
         case .day: EmptyView()
         case .week:
-            Section(header: Text("Graph")) {
-                ChartView(data: $viewModel.chartData)
-                    .frame(maxWidth: .infinity)
-            }
+            
+            ChartView(data: $viewModel.chartData)
+                .frame(maxWidth: .infinity)
         case .month: EmptyView()
         }
     }

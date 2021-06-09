@@ -15,33 +15,9 @@ struct ChartView: View {
     
     var body: some View {
         if !data.isEmpty {
-            HStack(spacing: 20) {
-                ForEach((0...data.count - 1), id: \.self) { index in
-                    VStack {
-                        ZStack(alignment: .bottom) {
-                            RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                .fill(Color.systemGroupedBackground)
-                                .frame(width: 20, height: min(CGFloat(data.max()!) * multiplier, multiplier.advanced(by: multiplier / 4)))
-                            
-                            ZStack(alignment: .top) {
-                                RoundedRectangle(cornerRadius: 5, style: .continuous)
-                                    .fill(Color.accentColor)
-                                    .frame(width: 20, height: min(CGFloat(data[index]) * multiplier, multiplier))
-                                
-                                Text("\(data[index], specifier: "%.2f")")
-                                    .foregroundColor(.systemBackground)
-                                    .font(.caption)
-                                    .rotationEffect(.degrees(-90))
-                                    .offset(y: 10)
-                                
-                            }
-                        }
-                        Text(WEEK_NAMES[index])
-                            .foregroundColor(isCurrentDay(index) ? .label : .secondary)
-                            .font(.caption)
-                            .fontWeight(isCurrentDay(index) ? .bold : .regular)
-                    }
-                }
+            Section {
+                averageRow
+                chart
             }
         }
     }
@@ -52,6 +28,61 @@ struct ChartView: View {
     
     private func isCurrentDay(_ index: Int) -> Bool {
         return index == getCurrentDay() && viewModel.arrowCount == 0
+    }
+    
+    private func calculateAverage() -> Double {
+        let sum = data.reduce(0.0, +)
+        return sum / Double(data.count)
+    }
+}
+
+extension ChartView {
+    private var averageRow: some View {
+        HStack {
+            Text("Average")
+            Spacer()
+            HStack {
+                Text("\(calculateAverage(), specifier: "%.2f")")
+                    .font(.system(.body, design: .rounded))
+                Text("G")
+                    .textCase(.uppercase)
+            }
+            .foregroundColor(.secondary)
+        }
+    }
+    
+    private var chart: some View {
+        HStack {
+            ForEach((0...data.count - 1), id: \.self) { index in
+                VStack {
+                    ZStack(alignment: .bottom) {
+                        RoundedRectangle(cornerRadius: 5, style: .continuous)
+                            .fill(Color.systemGroupedBackground)
+                            .frame(width: 20, height: min(CGFloat(data.max()!) * multiplier, multiplier.advanced(by: multiplier / 4)))
+                        
+                        ZStack(alignment: .top) {
+                            RoundedRectangle(cornerRadius: 5, style: .continuous)
+                                .fill(Color.accentColor)
+                                .frame(width: 20, height: min(CGFloat(data[index]) * multiplier, multiplier))
+                            
+                            if data[index] != 0.0 {
+                                Text("\(data[index], specifier: "%.2f")")
+                                    .foregroundColor(.systemBackground)
+                                    .font(.system(.caption, design: .monospaced))
+                                    .rotationEffect(.degrees(-90))
+                                    .offset(y: data[index] < 0.25 ? 0 : 10)
+                            }
+                        }
+                    }
+                    Text(WEEK_NAMES[index])
+                        .foregroundColor(isCurrentDay(index) ? .label : .secondary)
+                        .font(.system(.caption, design: .monospaced))
+                        .fontWeight(isCurrentDay(index) ? .bold : .regular)
+                }
+                .frame(maxWidth: .infinity)
+            }
+        }
+        .padding([.top, .bottom])
     }
 }
 
