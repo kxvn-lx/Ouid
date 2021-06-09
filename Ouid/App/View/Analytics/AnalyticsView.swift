@@ -26,12 +26,7 @@ struct AnalyticsView: View {
                 }
                 .listRowBackground(Color.clear)
                 
-                if viewModel.selectedFrequency != .day {
-                    Section(header: Text("Graph")) {
-                        ChartView(data: $viewModel.chartData)
-                            .frame(maxWidth: .infinity)
-                    }
-                }
+                graphView
                 
                 Section(header: entriesHeaderView) {
                     EntriesRow(entries: $viewModel.filteredEntries)
@@ -141,6 +136,19 @@ extension AnalyticsView {
                     Image(systemName: "plus.circle")
                 }
             }
+        }
+    }
+    
+    @ViewBuilder
+    private var graphView: some View {
+        switch viewModel.selectedFrequency {
+        case .day: EmptyView()
+        case .week:
+            Section(header: Text("Graph")) {
+                ChartView(data: $viewModel.chartData)
+                    .frame(maxWidth: .infinity)
+            }
+        case .month: EmptyView()
         }
     }
 }

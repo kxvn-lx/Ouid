@@ -147,7 +147,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             } else if arrowCount == -1 {
                 title = "Yesterday (\((Date() + arrowCount.days).toFormat("d MMMM")))"
             } else {
-                title = (Date() + arrowCount.days).toFormat("d MMMM")
+                title = (Date() + arrowCount.days).toFormat("EEEE, d MMMM")
             }
             break
         case .week:
