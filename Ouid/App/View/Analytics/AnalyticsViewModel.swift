@@ -38,6 +38,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     @Published var totalAmountTitle = "Today"
+    @Published var shouldAnimateChart = false
     
     override init() {
         super.init()
@@ -45,6 +46,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         NotificationCenter.default.addObserver(self, selector:#selector(self.calendarDayDidChange(_:)), name:NSNotification.Name.NSCalendarDayChanged, object:nil)
     }
     
+    /// MARK: - Main methods
     /// reload the entries
     func load() {
         SaveEngine.shared.load { [weak self] entries in
@@ -52,7 +54,6 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             self.entries = entries
         }
     }
-    
     
     /// Delete an entry
     /// - Parameter offsets: the offsets to delete
@@ -80,7 +81,6 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         return difference >= 5
     }
     
-    /// Main function
     private func renderAnalytics() {
         DispatchQueue.main.async { [self] in
             filteredEntries = filterEntries(arrowCount: arrowCount)
@@ -92,6 +92,8 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             shouldDisableLeftScanner = arrowCount == getMinArrowCount()
             
             chartData = calculateChartData()
+            
+            shouldAnimateChart = true
         }
     }
     

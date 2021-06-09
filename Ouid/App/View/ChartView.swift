@@ -12,7 +12,7 @@ struct ChartView: View {
     @Binding var data: [Double]
     private let multiplier: CGFloat = 100
     private let WEEK_NAMES = ["S", "M", "T", "W", "T", "F", "S"]
-    private let MONTH_NAMES = ["Q1", "Q2", "Q3", "Q4"]
+    private let MONTH_NAMES = ["W1", "W2", "W3", "W4"]
     
     var body: some View {
         if !data.isEmpty {
@@ -64,14 +64,21 @@ extension ChartView {
                         ZStack(alignment: .top) {
                             RoundedRectangle(cornerRadius: 5, style: .continuous)
                                 .fill(Color.accentColor)
-                                .frame(width: 20, height: calculateBarHeight(at: index))
+//                                .fill(
+//                                    LinearGradient(gradient: Gradient(colors: [Color(hex: "#fccb90"), Color(hex: "#d57eeb")]), startPoint: .bottom, endPoint: .top)
+//                                )
+                                .frame(width: 20, height: viewModel.shouldAnimateChart ? min(calculateBarHeight(at: index), multiplier.advanced(by: multiplier / 4)) : 0)
+                                .transition(AnyTransition.slide)
+                                .animation(.easeInOut)
                             
                             if data[index] != 0.0 {
                                 Text("\(data[index], specifier: "%.2f")")
-                                    .foregroundColor(data[index] > 0.5 ? .systemBackground : .label)
+                                    .foregroundColor(data[index] <= 0.5 ? .label : .systemBackground)
                                     .font(.system(.caption, design: .monospaced))
                                     .rotationEffect(.degrees(-90))
-                                    .offset(y: data[index] < 0.5 ? -25 : 10)
+                                    .offset(y: data[index] <= 0.5 ? -25 : 10)
+                                    .transition(AnyTransition.opacity)
+                                    .animation(.default)
                             }
                         }
                     }
