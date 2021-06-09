@@ -194,8 +194,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         switch selectedFrequency {
         case .day: break
         case .week:
-            for (key, value) in groupDic {
-                print(key)
+            for (_, value) in groupDic {
                 let valueSum = value.reduce(0.0) { x, y in
                     x + y.measurement.value
                 }

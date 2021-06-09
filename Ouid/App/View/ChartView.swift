@@ -14,19 +14,20 @@ struct ChartView: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            ForEach(data, id: \.self) { value in
+            ForEach((0...data.count - 1), id: \.self) { index in
                 VStack {
                     ZStack(alignment: .bottom) {
                         RoundedRectangle(cornerRadius: 5, style: .continuous)
                             .fill(Color.systemGroupedBackground)
-//                            .frame(width: 20, height: min(CGFloat(data.max()!) * multiplier, multiplier))
-                            .frame(width: 20, height: CGFloat(data.max()!) * multiplier)
+                            .frame(width: 20, height: min(CGFloat(data.max()!) * multiplier, multiplier.advanced(by: multiplier / 4)))
                         
                         RoundedRectangle(cornerRadius: 5, style: .continuous)
                             .fill(Color.accentColor)
-//                            .frame(width: 20, height: min(CGFloat(value) * multiplier, multiplier))
-                            .frame(width: 20, height: CGFloat(value) * multiplier)
+                            .frame(width: 20, height: min(CGFloat(data[index]) * multiplier, multiplier))
                     }
+                    Text(WEEK_NAMES[index])
+                        .foregroundColor(.secondary)
+                        .font(.caption)
                 }
             }
         }
