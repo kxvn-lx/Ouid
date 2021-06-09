@@ -23,6 +23,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     @Published var filteredEntries = [Entry]()
+    @Published var chartData = [Double]()
     @Published var arrowCount = 0 {
         didSet {
             renderAnalytics()
@@ -52,6 +53,9 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
     }
     
+    
+    /// Delete an entry
+    /// - Parameter offsets: the offsets to delete
     func delete(entryAt offsets: IndexSet) {
         let entryToDelete = offsets.map({ filteredEntries[$0] }).first!
         
@@ -86,6 +90,8 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             totalAmountTitle = parseTotalAmountTitle()
             
             shouldDisableLeftScanner = arrowCount == getMinArrowCount()
+            
+            chartData = calculateChartData()
         }
     }
     
@@ -172,6 +178,24 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
         
         return title
+    }
+    
+    private func calculateChartData() -> [Double] {
+        var data = [Double]()
+        
+        let groupDic = Dictionary(grouping: filteredEntries) { (entry) -> DateComponents in
+            let date = Calendar.current.dateComponents([.day, .year, .month], from: (entry.date))
+            return date
+        }
+        
+        for (_, value) in groupDic {
+            let valueSum = value.reduce(0.0) { x, y in
+                x + y.measurement.value
+            }
+            data.append(valueSum)
+        }
+        
+        return data
     }
     
     @objc private func calendarDayDidChange(_ notification : NSNotification) {

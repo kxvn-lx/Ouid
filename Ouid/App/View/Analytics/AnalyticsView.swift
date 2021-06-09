@@ -7,15 +7,12 @@
 
 import SwiftUI
 import Combine
+import SwiftUICharts
 
 // MARK: - Main
 struct AnalyticsView: View {
     @EnvironmentObject private var viewModel: AnalyticsViewModel
     @State private var activeSheet: ActiveSheet?
-    
-    init() {
-        UITableViewCell.appearance().backgroundColor = UIColor.clear
-    }
     
     var body: some View {
         VStack {
@@ -29,6 +26,13 @@ struct AnalyticsView: View {
                     totalAmountSmokedView
                 }
                 .listRowBackground(Color.clear)
+                
+                if viewModel.selectedFrequency != .day {
+                    Section(header: Text("Graph")) {
+                        ChartView(data: viewModel.chartData)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
                 
                 Section(header: entriesHeaderView) {
                     EntriesRow(entries: $viewModel.filteredEntries)
@@ -44,6 +48,7 @@ struct AnalyticsView: View {
             }
             .onAppear(perform: {
                 viewModel.load()
+                UITableViewCell.appearance().backgroundColor = UIColor.clear
             })
             .navigationBarTitle("Dashboard", displayMode: .large)
             .sheet(item: $activeSheet) {
