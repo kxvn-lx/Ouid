@@ -73,10 +73,10 @@ extension ChartView {
                             
                             if data[index] != 0.0 {
                                 Text("\(data[index], specifier: "%.2f")")
-                                    .foregroundColor(data[index] <= 0.5 ? .label : .systemBackground)
+                                    .foregroundColor(data[index] <= 0.6 ? .label : .systemBackground)
                                     .font(.system(.caption, design: .monospaced))
                                     .rotationEffect(.degrees(-90))
-                                    .offset(y: data[index] <= 0.5 ? -25 : 10)
+                                    .offset(y: data[index] <= 0.6 ? -25 : 10)
                                     .transition(AnyTransition.opacity)
                                     .animation(.default)
                             }
