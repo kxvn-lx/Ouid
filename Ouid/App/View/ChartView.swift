@@ -12,8 +12,7 @@ struct ChartView: View {
     @Binding var data: [Double]
     private let multiplier: CGFloat = 100
     private let WEEK_NAMES = ["S", "M", "T", "W", "T", "F", "S"]
-    private let MONTH_NAMES = ["W1", "W2", "W3", "W4"]
-    
+
     var body: some View {
         if !data.isEmpty {
             Section {
@@ -28,7 +27,11 @@ struct ChartView: View {
     }
     
     private func isCurrentDay(_ index: Int) -> Bool {
-        return index == getCurrentDay() && viewModel.arrowCount == 0
+        if viewModel.selectedFrequency == .month {
+            return false
+        } else {
+            return index == getCurrentDay() && viewModel.arrowCount == 0
+        }
     }
     
     private func calculateAverage() -> Double {
@@ -82,7 +85,7 @@ extension ChartView {
                             }
                         }
                     }
-                    Text(viewModel.selectedFrequency == .week ? WEEK_NAMES[index] : MONTH_NAMES[index])
+                    Text(viewModel.chartXLabels[index])
                         .foregroundColor(isCurrentDay(index) ? .label : .secondary)
                         .font(.system(.caption, design: .monospaced))
                         .fontWeight(isCurrentDay(index) ? .bold : .regular)

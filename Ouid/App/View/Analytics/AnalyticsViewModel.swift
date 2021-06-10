@@ -22,6 +22,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             renderAnalytics()
         }
     }
+    @Published var chartXLabels = [String]()
     @Published var filteredEntries = [Entry]()
     @Published var chartData = [Double]()
     @Published var arrowCount = 0 {
@@ -94,6 +95,8 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             chartData = calculateChartData()
             
             shouldAnimateChart = true
+            
+            chartXLabels = getChartXLabel()
         }
     }
     
@@ -228,7 +231,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     }
     
     private func processMonthlyChartData() -> [Double] {
-        var data: [Double] = .init(repeating: 0.0, count: 4)
+        var data: [Double] = .init(repeating: 0.0, count: numberOfWeeksInMonth(filteredEntries.first!.date))
         
         for entry in filteredEntries {
             let index = getEntryWeek(entry)
@@ -239,13 +242,35 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     }
     
     private func getEntryWeek(_ entry: Entry) -> Int {
-        for index in 0...3 {
-            let firstDayOfMonth = Date().dateAt(.startOfMonth)
+        let firstDayOfMonth = entry.date.dateAt(.startOfMonth)
+        
+        for index in 0...numberOfWeeksInMonth(entry.date) {
             if entry.date.compare(.isSameWeek(firstDayOfMonth + index.weeks)) {
                 return index
             }
         }
         return 0
+    }
+    
+    private func numberOfWeeksInMonth(_ date: Date) -> Int {
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.firstWeekday = 1
+        let weekRange = calendar.range(of: .weekOfMonth,
+                                       in: .month,
+                                       for: date)
+        return weekRange!.count
+    }
+    
+    private func getChartXLabel() -> [String] {
+        if selectedFrequency == .week {
+            return ["S", "M", "T", "W", "T", "F", "S"]
+        } else {
+            var labels = [String]()
+            for index in 1...numberOfWeeksInMonth(filteredEntries.first!.date) {
+                labels.append("W\(index)")
+            }
+            return labels
+        }
     }
     
     @objc private func calendarDayDidChange(_ notification : NSNotification) {
