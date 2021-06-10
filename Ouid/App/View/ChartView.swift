@@ -67,9 +67,6 @@ extension ChartView {
                         ZStack(alignment: .top) {
                             RoundedRectangle(cornerRadius: 5, style: .continuous)
                                 .fill(Color.accentColor)
-//                                .fill(
-//                                    LinearGradient(gradient: Gradient(colors: [Color(hex: "#fccb90"), Color(hex: "#d57eeb")]), startPoint: .bottom, endPoint: .top)
-//                                )
                                 .frame(width: 20, height: viewModel.shouldAnimateChart ? min(calculateBarHeight(at: index), multiplier.advanced(by: multiplier / 4)) : 0)
                                 .transition(AnyTransition.slide)
                                 .animation(.easeInOut)

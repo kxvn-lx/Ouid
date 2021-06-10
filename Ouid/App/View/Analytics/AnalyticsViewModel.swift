@@ -266,7 +266,15 @@ class AnalyticsViewModel: NSObject, ObservableObject {
             return ["S", "M", "T", "W", "T", "F", "S"]
         } else {
             var labels = [String]()
-            for index in 1...numberOfWeeksInMonth(filteredEntries.first!.date) {
+            let numberOfWeeks: Int
+            
+            if let entry = filteredEntries.first {
+                numberOfWeeks = numberOfWeeksInMonth(entry.date)
+            } else {
+                numberOfWeeks = numberOfWeeksInMonth(Date())
+            }
+            
+            for index in 1...numberOfWeeks {
                 labels.append("W\(index)")
             }
             return labels

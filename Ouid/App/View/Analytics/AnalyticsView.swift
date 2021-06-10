@@ -51,11 +51,18 @@ struct AnalyticsView: View {
                 viewModel.load()
             } content: { item in
                 switch item {
-                case .addEntryView:
-                    AddEntryView()
+                case .addEntryView: AddEntryView()
+                case .settingsView: SettingsView()
                 }
             }
             .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        activeSheet = .settingsView
+                    }, label: {
+                        Image(systemName: "gear")
+                    })
+                }
                 ToolbarItem(placement: .bottomBar) {
                     Button(action: {
                         TapticHelper.shared.lightTaptic()

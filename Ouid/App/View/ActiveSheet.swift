@@ -8,7 +8,7 @@
 import Foundation
 
 enum ActiveSheet: Identifiable {
-    case addEntryView
+    case addEntryView, settingsView
     
     var id: Int {
         hashValue

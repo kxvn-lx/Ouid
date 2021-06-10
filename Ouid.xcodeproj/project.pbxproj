@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A09C41726720BD900106633 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09C41626720BD900106633 /* SettingsView.swift */; };
+		0A09C41926720CBC00106633 /* ChartColourPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A09C41826720CBC00106633 /* ChartColourPickerView.swift */; };
 		0A0E1C782661FF5900F08706 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A0E1C772661FF5900F08706 /* SnapKit */; };
 		0A0E1C82266202AF00F08706 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E1C81266202AF00F08706 /* UIViewController+.swift */; };
 		0A0E1C85266203AA00F08706 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E1C84266203AA00F08706 /* Entry.swift */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A09C41626720BD900106633 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		0A09C41826720CBC00106633 /* ChartColourPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartColourPickerView.swift; sourceTree = "<group>"; };
 		0A0E1C81266202AF00F08706 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		0A0E1C84266203AA00F08706 /* Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entry.swift; sourceTree = "<group>"; };
 		0A0E1C862662048800F08706 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
@@ -71,9 +75,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A09C415267205D700106633 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				0A09C41626720BD900106633 /* SettingsView.swift */,
+				0A09C41826720CBC00106633 /* ChartColourPickerView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
 		0A0E1C7F2662029200F08706 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0A09C415267205D700106633 /* Settings */,
 				0A4C4CA42663A71C00FE70FF /* Analytics */,
 				0AC60CAE266DF06700021DC4 /* ActiveSheet.swift */,
 				0A21956B266FA85F00BF4FE5 /* ChartView.swift */,
@@ -259,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AC60CB1266DFCCF00021DC4 /* EntriesRow.swift in Sources */,
+				0A09C41926720CBC00106633 /* ChartColourPickerView.swift in Sources */,
 				0A0E1C872662048800F08706 /* Date+.swift in Sources */,
 				0AC60CAF266DF06700021DC4 /* ActiveSheet.swift in Sources */,
 				0A0E1C85266203AA00F08706 /* Entry.swift in Sources */,
@@ -276,6 +291,7 @@
 				0AC60CB6266E1ACF00021DC4 /* TapticHelper.swift in Sources */,
 				0AC60CB3266E097C00021DC4 /* Color+.swift in Sources */,
 				0A7367C9265FD69B002CF722 /* SceneDelegate.swift in Sources */,
+				0A09C41726720BD900106633 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
