@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Environment(\.presentationMode) private var presentationMode
+    
     var body: some View {
         NavigationView {
             Form {
@@ -15,11 +17,18 @@ struct SettingsView: View {
                     NavigationLink(
                         destination: ChartColourPickerView(),
                         label: {
-                            Text("Bar chart colours")
+                            Text("Bar chart")
                         })
                 }
             }
             .navigationBarTitle(Text("Settings"))
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Close") {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
         }
     }
 }

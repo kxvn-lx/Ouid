@@ -149,11 +149,11 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         switch selectedFrequency {
         case .day:
             if arrowCount == 0 {
-                title = "Today (\((Date() + arrowCount.days).toFormat("d MMMM")))"
+                title = "Today (\((Date().convertTo(region: .current) + arrowCount.days).toFormat("d MMMM")))"
             } else if arrowCount == -1 {
-                title = "Yesterday (\((Date() + arrowCount.days).toFormat("d MMMM")))"
+                title = "Yesterday (\((Date().convertTo(region: .current) + arrowCount.days).toFormat("d MMMM")))"
             } else {
-                title = (Date() + arrowCount.days).toFormat("EEEE, d MMMM")
+                title = (Date().convertTo(region: .current) + arrowCount.days).toFormat("EEEE, d MMMM")
             }
             break
         case .week:
