@@ -203,8 +203,7 @@ class AnalyticsViewModel: NSObject, ObservableObject {
     }
     
     private func processWeeklyChartData() -> [Double] {
-        var data = [Double]()
-        let WEEK = 7
+        var data: [Double] = .init(repeating: 0.0, count: 7)
         
         // Group entries by the weekday
         let groupDic = Dictionary(grouping: filteredEntries) { (entry) -> DateComponents in
@@ -213,18 +212,12 @@ class AnalyticsViewModel: NSObject, ObservableObject {
         }
         .sorted(by: { $0.key.weekday! < $1.key.weekday! })
         
-        for (_, value) in groupDic {
+        for (key, value) in groupDic {
             let valueSum = value.reduce(0.0) { x, y in
                 x + y.measurement.value
             }
-            data.append(valueSum)
-        }
-        
-        let diff = WEEK - data.count
-        if data.count != WEEK {
-            for _ in 1...diff {
-                data.append(0.0)
-            }
+            
+            data[key.weekday! - 1] = valueSum
         }
         
         return data
