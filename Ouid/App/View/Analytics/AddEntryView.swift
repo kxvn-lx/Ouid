@@ -63,6 +63,7 @@ struct AddEntryView: View, KeyboardReadable {
                             }
                         })
                 }
+                
                 dateTimePicker
             }
             .onTapGesture {

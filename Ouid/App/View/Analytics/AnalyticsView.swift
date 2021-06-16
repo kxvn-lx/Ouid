@@ -15,7 +15,7 @@ struct AnalyticsView: View {
     
     var body: some View {
         VStack {
-            Form {
+            List {
                 Section(header: selectionHeaderView) {
                     EmptyView()
                 }
@@ -42,6 +42,7 @@ struct AnalyticsView: View {
                     }
                 }
             }
+            .listStyle(InsetGroupedListStyle())
             .onAppear(perform: {
                 viewModel.load()
                 UITableViewCell.appearance().backgroundColor = UIColor.clear

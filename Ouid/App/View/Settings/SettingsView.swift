@@ -12,7 +12,7 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationView {
-            Form {
+            List {
                 Section(header: Text("Customisation")) {
                     NavigationLink(
                         destination: ChartColourPickerView(),
@@ -21,6 +21,7 @@ struct SettingsView: View {
                         })
                 }
             }
+            .listStyle(InsetGroupedListStyle())
             .navigationBarTitle(Text("Settings"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {

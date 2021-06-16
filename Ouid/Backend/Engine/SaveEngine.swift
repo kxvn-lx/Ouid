@@ -29,7 +29,6 @@ struct SaveEngine {
                                                    in: .userDomainMask,
                                                    appropriateFor: nil,
                                                    create: false).appendingPathComponent("SavedDatas")
-            
             if let data = try? Data(contentsOf: filePath) {
                 decoder.dataDecodingStrategy = .base64
                 
