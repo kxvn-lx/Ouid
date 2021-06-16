@@ -29,6 +29,9 @@ struct SettingsView: View {
                     }
                 }
             }
+            .onAppear(perform: {
+                UITableViewCell.appearance().backgroundColor = UIColor.clear
+            })
         }
     }
 }
