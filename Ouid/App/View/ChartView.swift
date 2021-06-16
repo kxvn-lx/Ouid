@@ -62,7 +62,7 @@ extension ChartView {
                     ZStack(alignment: .bottom) {
                         RoundedRectangle(cornerRadius: 5, style: .continuous)
                             .fill(Color.systemGroupedBackground)
-                            .frame(width: 20, height: min(CGFloat(data.max()!) * multiplier, multiplier.advanced(by: multiplier / 4)))
+                            .frame(width: 20, height: calculateDefaultHeight())
                         
                         ZStack(alignment: .top) {
                             RoundedRectangle(cornerRadius: 5, style: .continuous)
@@ -96,6 +96,13 @@ extension ChartView {
     private func calculateBarHeight(at index: Int) -> CGFloat {
         let perc = data[index] * (viewModel.selectedFrequency == .week ? 0.5 : 0.75)
         return CGFloat(data[index] - perc) * multiplier
+    }
+    
+    private func calculateDefaultHeight() -> CGFloat {
+        let multAdv = multiplier.advanced(by: multiplier / 4)
+        let minMult = min(CGFloat(data.max()!) * multiplier, multiplier.advanced(by: multiplier / 4))
+        
+        return minMult < multAdv ? multAdv : minMult
     }
 }
 
